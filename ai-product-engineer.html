@@ -3,11 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pawel's Roadmap</title>
+<title>AI Product Engineer Roadmap | Startup Job Search, DevPulse Build Plan, and Interview Prep</title>
+<meta name="description" content="Six-week AI product engineer roadmap covering startup job search preparation, DevPulse build milestones, applications, outreach, and interview prep.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI Product Engineer Roadmap">
+<meta property="og:description" content="A six-week roadmap for becoming job-ready through product shipping, backend skill-building, outreach, and interview preparation.">
+<meta property="og:image" content="https://dummyimage.com/1200x630/0d1117/f0f0f0&amp;text=AI+Product+Engineer+Roadmap">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Product Engineer Roadmap">
+<meta name="twitter:description" content="Interactive startup job search roadmap covering DevPulse, outreach, applications, and interview prep.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "AI Product Engineer Roadmap",
+  "description": "Six-week roadmap for closing skill gaps, shipping DevPulse, applying to startup roles, and preparing for interviews.",
+  "about": [
+    "AI product engineer",
+    "Startup job search",
+    "FastAPI roadmap",
+    "Interview preparation",
+    "Project roadmap"
+  ],
+  "hasPart": [
+    {
+      "@type": "WebPageElement",
+      "name": "Foundation & Legitimacy",
+      "description": "Set up business credibility, refresh FastAPI knowledge, and define the DevPulse architecture."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Build DevPulse Backend",
+      "description": "Implement GitHub ingestion, LLM summarization, FastAPI routes, and local backend testing."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Frontend + Deploy + Ship",
+      "description": "Build the frontend, connect the full stack, deploy the app, and publish the work."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Applications + Interview Prep",
+      "description": "Research companies, apply, practice DSA and system design, and sharpen your founder outreach."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Interviews + Keep Shipping",
+      "description": "Continue applications, prepare for take-homes, review pipeline performance, and stay in motion."
+    }
+  ]
+}
+</script>
 <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montez&family=Outfit:wght@100..900&family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montez&amp;family=Outfit:wght@100..900&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
   body {
@@ -16,6 +68,41 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
+
+  .skip-link {
+    position: absolute;
+    left: 20px;
+    top: -40px;
+    padding: 8px 12px;
+    background: #c8f135;
+    color: #0d1117;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    z-index: 20;
+  }
+
+  .skip-link:focus { top: 12px; }
+
+  .top-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .top-link {
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .top-link:hover { color: rgba(255,255,255,0.82); }
 
   /* Animated background */
   .bg-orb {
@@ -201,9 +288,79 @@
     border-radius: 12px;
     backdrop-filter: blur(12px);
   }
+
+  .intro-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+  }
+
+  .phase-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .phase-link {
+    display: block;
+    text-decoration: none;
+    padding: 16px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.025);
+    backdrop-filter: blur(10px);
+    transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .phase-link:hover {
+    transform: translateY(-2px);
+    border-color: rgba(200,241,53,0.22);
+    background: rgba(200,241,53,0.04);
+  }
+
+  .phase-link-kicker {
+    display: block;
+    color: rgba(255,255,255,0.35);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+
+  .phase-link-title {
+    display: block;
+    color: #f0f0f0;
+    font-size: 15px;
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
+
+  .phase-link-meta {
+    display: block;
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .phase-section {
+    margin-bottom: 26px;
+  }
+
+  .phase-summary {
+    margin: 10px 0 16px;
+    color: rgba(255,255,255,0.48);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .phase-nav { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body class="relative">
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
 <!-- BG orbs -->
 <div class="bg-orb w-96 h-96 bg-lime-400" style="top:-80px;left:-60px;"></div>
@@ -212,20 +369,25 @@
 
 <div class="relative z-10 max-w-4xl mx-auto px-5 py-10">
 
+  <div class="top-links">
+    <a class="top-link" href="./index.html">All Trackers</a>
+  </div>
+
   <!-- Header -->
-  <div class="mb-10 fade-up">
+  <header class="mb-10 fade-up">
     <p class="text-xs tracking-widest uppercase mb-3" style="color:#c8f135;letter-spacing:0.18em;">// job-ready roadmap · 2026</p>
     <h1 class="syne text-5xl font-extrabold leading-tight mb-4" style="color:#f0f0f0;">From indie dev<br>to <span style="color:#c8f135;">hired.</span></h1>
+    <p class="max-w-2xl text-sm leading-7" style="color:rgba(255,255,255,0.52);">This roadmap turns a scattered startup job search into a structured six-week plan: establish credibility, build and ship DevPulse, create public proof of work, then convert that momentum into applications and interview-ready stories.</p>
     <div class="flex flex-wrap gap-2 mt-4">
       <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">2–3 hrs/day</span>
-      <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">Off: Mon & Thu</span>
+      <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">Off: Mon &amp; Thu</span>
       <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">6 weeks</span>
       <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">&lt;50 person product startup</span>
     </div>
-  </div>
+  </header>
 
   <!-- Stats -->
-  <div class="grid grid-cols-4 gap-3 mb-8 fade-up">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 fade-up">
     <div class="stat-card p-4 text-center">
       <div class="syne text-3xl font-bold mb-1" style="color:#c8f135;" id="stat-done">0</div>
       <div class="text-xs tracking-widest uppercase" style="color:rgba(255,255,255,0.35);">Days done</div>
@@ -255,44 +417,64 @@
     </div>
   </div>
 
-  <!-- Project brief -->
-  <div class="project-card p-5 mb-10 fade-up">
-    <div class="flex items-center gap-3 mb-4">
-      <span class="tag tag-build">The Project</span>
-      <span class="syne text-base font-bold" style="color:#f0f0f0;">DevPulse — AI-powered Developer Activity Summarizer</span>
-    </div>
-    <div class="grid grid-cols-2 gap-6">
-      <div>
-        <p class="text-xs tracking-widest uppercase mb-3" style="color:#35c8f1;">What you'll build</p>
-        <ul class="space-y-2">
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ FastAPI backend with GitHub OAuth</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Fetches commits, PRs, activity</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Sends to Claude/OpenAI for summary</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Weekly "what did I build" digest</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ React or SvelteKit frontend</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Deployed live (Railway / Render)</li>
-        </ul>
+  <main id="main-content">
+    <section class="intro-card p-5 mb-10 fade-up" aria-labelledby="roadmap-overview-title">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="tag tag-learn">Roadmap Guide</span>
+        <h2 class="text-base font-bold m-0" id="roadmap-overview-title" style="color:#f0f0f0;">Section overview for the full startup job-search plan</h2>
       </div>
-      <div>
-        <p class="text-xs tracking-widest uppercase mb-3" style="color:#35c8f1;">Why this project</p>
-        <ul class="space-y-2">
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Closes FastAPI gap — built from scratch</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Closes AI gap — LLM in production</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Genuinely useful — you'll use it</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Relevant to devtools startups</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Small enough to finish in 2 weeks</li>
-          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Live URL — interviewers can verify</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+      <p class="text-sm leading-7 mb-0" style="color:rgba(255,255,255,0.5);">Each section below groups the roadmap by outcome: credibility setup, DevPulse backend build, full-stack launch, applications, and interview preparation. Use the quick links to jump straight into the phase you want to focus on.</p>
+    </section>
 
-  <!-- DAYS -->
-  <div id="days-container"></div>
+    <nav class="phase-nav mb-10 fade-up" id="phase-nav" aria-label="Jump to roadmap phases"></nav>
+
+    <!-- Project brief -->
+    <section class="project-card p-5 mb-10 fade-up" aria-labelledby="project-brief-title">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="tag tag-build">The Project</span>
+        <h2 class="syne text-base font-bold m-0" id="project-brief-title" style="color:#f0f0f0;">DevPulse — AI-powered Developer Activity Summarizer</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <p class="text-xs tracking-widest uppercase mb-3" style="color:#35c8f1;">What you'll build</p>
+          <ul class="space-y-2">
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ FastAPI backend with GitHub OAuth</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Fetches commits, PRs, activity</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Sends to Claude/OpenAI for summary</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Weekly "what did I build" digest</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ React or SvelteKit frontend</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Deployed live (Railway / Render)</li>
+          </ul>
+        </div>
+        <div>
+          <p class="text-xs tracking-widest uppercase mb-3" style="color:#35c8f1;">Why this project</p>
+          <ul class="space-y-2">
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Closes FastAPI gap — built from scratch</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Closes AI gap — LLM in production</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Genuinely useful — you'll use it</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Relevant to devtools startups</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Small enough to finish in 2 weeks</li>
+            <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Live URL — interviewers can verify</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- DAYS -->
+    <div id="days-container"></div>
+  </main>
 
 </div>
 
 <script>
+const PHASE_SUMMARIES = {
+  1: 'Establish legitimacy, tighten your LinkedIn and GitHub presence, and get clear on the FastAPI and API foundations behind DevPulse.',
+  2: 'Build the FastAPI backend core by fetching GitHub activity, creating the LLM summarization flow, and validating the whole backend locally.',
+  3: 'Ship the user-facing layer by building the frontend, deploying the stack, and publishing the project so it becomes proof of work.',
+  4: 'Turn the shipped work into pipeline momentum through targeted applications, outreach, DSA refreshers, system design basics, and mock interviews.',
+  5: 'Stay active during interviews with continued outreach, take-home readiness, strategy reviews, and ongoing shipping so the pipeline does not stall.'
+};
+
 const DAYS = [
   // Phase 1
   { phase: 1, phaseTitle: 'Foundation & Legitimacy', phaseGoal: 'Week 1 · Days 1–7', id: 1, name: 'Monday', num: 'Day 1', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
@@ -388,57 +570,93 @@ function updateStats() {
   document.getElementById('prog-label').textContent = done + ' / ' + activeDays.length + ' active days';
 }
 
+function getPhases() {
+  const phases = [];
+  let current = null;
+
+  DAYS.forEach(entry => {
+    if (entry.phase) {
+      current = {
+        phase: entry.phase,
+        title: entry.phaseTitle,
+        goal: entry.phaseGoal,
+        summary: PHASE_SUMMARIES[entry.phase] || '',
+        entries: []
+      };
+      phases.push(current);
+    }
+
+    if (current) current.entries.push(entry);
+  });
+
+  return phases;
+}
+
+function renderEntry(day) {
+  if (day.milestone) {
+    return `<div class="milestone-row flex items-center gap-3 px-4 py-3 mb-4">
+      <span class="tag tag-milestone">✦ milestone</span>
+      <span class="text-sm" style="color:#c8f135;opacity:0.8;">${day.milestone}</span>
+    </div>`;
+  }
+
+  const st = state[day.id] || { checked: false, status: day.off ? 'skip' : 'todo' };
+  const isDone = st.status === 'done' || st.checked;
+  const isOff = day.off;
+
+  return `<div class="glass-row rounded-lg px-4 py-3 mb-1 flex items-start gap-3 ${isOff ? 'off-row' : ''} ${isDone && !isOff ? 'done' : ''}" id="row-${day.id}">
+    <div class="flex items-center gap-3 pt-0.5 flex-shrink-0" style="width:160px;">
+      ${!isOff ? `<div class="custom-check ${isDone ? 'checked' : ''}" id="chk-${day.id}" onclick="toggleCheck(${day.id})"></div>` : `<div style="width:18px;"></div>`}
+      <div>
+        <div class="text-sm font-medium" style="color:rgba(255,255,255,${isOff ? '0.3' : '0.8'});">${day.name}</div>
+        <div class="text-xs" style="color:rgba(255,255,255,0.25);">${day.num}</div>
+      </div>
+    </div>
+
+    <div class="flex-1 min-w-0">
+      <div class="text-sm task-text mb-1" style="color:rgba(255,255,255,${isOff ? '0.25' : '0.75'});">${day.task}</div>
+      ${day.sub ? `<div class="text-xs task-text leading-relaxed" style="color:rgba(255,255,255,0.35);">${day.sub}</div>` : ''}
+    </div>
+
+    <div class="flex items-center gap-2 flex-shrink-0 pt-0.5">
+      <span class="tag ${TAG_MAP[day.tag]}">${TAG_LABELS[day.tag]}</span>
+      ${!isOff ? `<select class="status-select" id="sel-${day.id}" onchange="changeStatus(${day.id}, this)">
+        <option value="todo" ${st.status === 'todo' ? 'selected' : ''}>To do</option>
+        <option value="inprog" ${st.status === 'inprog' ? 'selected' : ''}>In progress</option>
+        <option value="done" ${st.status === 'done' ? 'selected' : ''}>Done</option>
+        <option value="skip" ${st.status === 'skip' ? 'selected' : ''}>Skip</option>
+      </select>` : ''}
+    </div>
+  </div>`;
+}
+
 function render() {
   const container = document.getElementById('days-container');
-  let html = '';
-  let currentPhase = null;
+  const phases = getPhases();
 
-  DAYS.forEach(day => {
-    if (day.milestone) {
-      html += `<div class="milestone-row flex items-center gap-3 px-4 py-3 mb-4">
-        <span class="tag tag-milestone">✦ milestone</span>
-        <span class="text-sm" style="color:#c8f135;opacity:0.8;">${day.milestone}</span>
-      </div>`;
-      return;
-    }
+  document.getElementById('phase-nav').innerHTML = phases.map(phase => {
+    const phaseDays = phase.entries.filter(entry => entry.id && !entry.off);
+    const phaseDone = phaseDays.filter(entry => state[entry.id]?.status === 'done').length;
+    return `<a class="phase-link" href="#phase-${phase.phase}">
+      <span class="phase-link-kicker">Phase 0${phase.phase}</span>
+      <span class="phase-link-title">${phase.title}</span>
+      <span class="phase-link-meta">${phase.summary} ${phaseDone}/${phaseDays.length} active days complete.</span>
+    </a>`;
+  }).join('');
 
-    if (day.phase) {
-      html += `<div class="phase-header rounded-lg px-4 py-3 mb-1 flex items-center gap-3 flex-wrap mt-4">
-        <span class="text-xs tracking-widest uppercase px-2 py-1 rounded" style="background:rgba(200,241,53,0.1);border:1px solid rgba(200,241,53,0.2);color:#c8f135;">Phase 0${day.phase}</span>
-        <span class="syne font-bold text-base" style="color:#f0f0f0;">${day.phaseTitle}</span>
-        <span class="ml-auto text-xs" style="color:rgba(255,255,255,0.35);">${day.phaseGoal}</span>
-      </div>`;
-    }
+  const html = phases.map(phase => {
+    const phaseContent = phase.entries.map(renderEntry).join('');
 
-    const st = state[day.id] || { checked: false, status: day.off ? 'skip' : 'todo' };
-    const isDone = st.status === 'done' || st.checked;
-    const isOff = day.off;
-
-    html += `<div class="glass-row rounded-lg px-4 py-3 mb-1 flex items-start gap-3 ${isOff ? 'off-row' : ''} ${isDone && !isOff ? 'done' : ''}" id="row-${day.id}">
-      <div class="flex items-center gap-3 pt-0.5 flex-shrink-0" style="width:160px;">
-        ${!isOff ? `<div class="custom-check ${isDone ? 'checked' : ''}" id="chk-${day.id}" onclick="toggleCheck(${day.id})"></div>` : `<div style="width:18px;"></div>`}
-        <div>
-          <div class="text-sm font-medium" style="color:rgba(255,255,255,${isOff?'0.3':'0.8'});">${day.name}</div>
-          <div class="text-xs" style="color:rgba(255,255,255,0.25);">${day.num}</div>
-        </div>
+    return `<section class="phase-section" id="phase-${phase.phase}" aria-labelledby="phase-title-${phase.phase}">
+      <div class="phase-header rounded-lg px-4 py-3 mb-1 flex items-center gap-3 flex-wrap mt-4">
+        <span class="text-xs tracking-widest uppercase px-2 py-1 rounded" style="background:rgba(200,241,53,0.1);border:1px solid rgba(200,241,53,0.2);color:#c8f135;">Phase 0${phase.phase}</span>
+        <h2 class="syne font-bold text-base m-0" id="phase-title-${phase.phase}" style="color:#f0f0f0;">${phase.title}</h2>
+        <span class="ml-auto text-xs" style="color:rgba(255,255,255,0.35);">${phase.goal}</span>
       </div>
-
-      <div class="flex-1 min-w-0">
-        <div class="text-sm task-text mb-1" style="color:rgba(255,255,255,${isOff?'0.25':'0.75'});">${day.task}</div>
-        ${day.sub ? `<div class="text-xs task-text leading-relaxed" style="color:rgba(255,255,255,0.35);">${day.sub}</div>` : ''}
-      </div>
-
-      <div class="flex items-center gap-2 flex-shrink-0 pt-0.5">
-        <span class="tag ${TAG_MAP[day.tag]}">${TAG_LABELS[day.tag]}</span>
-        ${!isOff ? `<select class="status-select" id="sel-${day.id}" onchange="changeStatus(${day.id}, this)">
-          <option value="todo" ${st.status==='todo'?'selected':''}>To do</option>
-          <option value="inprog" ${st.status==='inprog'?'selected':''}>In progress</option>
-          <option value="done" ${st.status==='done'?'selected':''}>Done</option>
-          <option value="skip" ${st.status==='skip'?'selected':''}>Skip</option>
-        </select>` : ''}
-      </div>
-    </div>`;
-  });
+      <p class="phase-summary">${phase.summary}</p>
+      ${phaseContent}
+    </section>`;
+  }).join('');
 
   container.innerHTML = html;
 
