@@ -57,13 +57,13 @@
 }
 </script>
 <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montez&amp;family=Outfit:wght@100..900&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
   body {
-    font-family: 'Outfit', monospace;
+    font-family: 'Outfit', sans-serif;
     background: #0d1117;
     min-height: 100vh;
     overflow-x: hidden;
@@ -197,7 +197,7 @@
     color: rgba(255,255,255,0.7);
     border-radius: 6px;
     padding: 3px 8px;
-    font-family: 'Outfit', monospace;
+    font-family: 'Outfit', sans-serif;
     font-size: 11.5px;
     cursor: pointer;
     outline: none;
@@ -266,8 +266,7 @@
     margin: 6px 0 16px;
   }
 
-  /* Syne font */
-  .syne { font-family: 'Imperial', cursive }
+  .syne { font-family: 'Outfit', sans-serif; letter-spacing: -0.03em; }
 
   /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; }
@@ -356,6 +355,34 @@
 
   @media (max-width: 768px) {
     .phase-nav { grid-template-columns: 1fr; }
+    .phase-header { align-items: flex-start; }
+  }
+
+  @media (max-width: 640px) {
+    .top-links { margin-bottom: 16px; }
+    .phase-link { padding: 14px 16px; }
+    .phase-summary { font-size: 13px; line-height: 1.7; }
+    .glass-row { padding: 14px; }
+    .status-select { min-width: 0; width: 100%; }
+  }
+
+  @media (max-width: 560px) {
+    .glass-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .glass-row > div:first-child {
+      width: auto !important;
+      padding-top: 0;
+    }
+
+    .glass-row > div:last-child {
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
   }
 </style>
 </head>
