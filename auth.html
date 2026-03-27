@@ -3,7 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Auth Mastery Checklist</title>
+<title>Auth Mastery Checklist | JWT, Refresh Tokens, Password Hashing, and Auth Security</title>
+<meta name="description" content="Interactive authentication checklist covering JWT fundamentals, password hashing, refresh token flows, protected routes, and production auth security edge cases.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#080808">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Auth Mastery Checklist">
+<meta property="og:description" content="Study authentication from first principles with sectioned coverage of JWT, password hashing, refresh flows, and auth failure modes.">
+<meta property="og:image" content="https://dummyimage.com/1200x630/080808/ddd8cf&amp;text=Auth+Mastery+Checklist">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Auth Mastery Checklist">
+<meta name="twitter:description" content="An interactive auth study roadmap for JWT, sessions, refresh tokens, cookies, and production security edge cases.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Auth Mastery Checklist",
+  "description": "Interactive authentication checklist for JWT, password hashing, refresh tokens, protected routes, and auth security interviews.",
+  "about": [
+    "Authentication",
+    "JWT",
+    "Refresh tokens",
+    "Password hashing",
+    "Auth security"
+  ],
+  "hasPart": [
+    {
+      "@type": "WebPageElement",
+      "name": "Foundational Concepts",
+      "description": "Core authentication tradeoffs covering sessions versus JWTs, token internals, and password hashing."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Build It From Scratch",
+      "description": "Practical implementation work for signup, login, refresh tokens, protected routes, and frontend token storage."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "What Breaks It",
+      "description": "Security failures, broken implementations, and production auth edge cases."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Explain It Cold",
+      "description": "Interview-focused explanation prompts for articulating the full auth system with confidence."
+    }
+  ]
+}
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
 
@@ -33,6 +80,41 @@
   }
 
   .container { max-width: 740px; margin: 0 auto; }
+
+  .skip-link {
+    position: absolute;
+    left: 20px;
+    top: -40px;
+    padding: 8px 12px;
+    background: var(--accent);
+    color: #02110d;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    z-index: 10;
+  }
+
+  .skip-link:focus { top: 12px; }
+
+  .top-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .top-link {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .top-link:hover { color: var(--text); }
 
   .header {
     display: flex;
@@ -127,6 +209,74 @@
 
   .confidence-banner.show { display: block; }
 
+  .intro-card {
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    background: var(--surface);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+  }
+
+  .intro-title {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .intro-copy {
+    font-size: 11px;
+    line-height: 1.8;
+    color: #8a867e;
+  }
+
+  .section-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .section-link {
+    display: block;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 14px;
+    text-decoration: none;
+    background: rgba(255,255,255,0.015);
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .section-link:hover {
+    border-color: rgba(0,196,154,0.25);
+    background: rgba(0,196,154,0.03);
+  }
+
+  .section-link-kicker {
+    display: block;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .section-link-title {
+    display: block;
+    color: var(--text);
+    font-size: 11px;
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+
+  .section-link-meta {
+    display: block;
+    color: #666059;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+
   /* section */
   .section { margin-bottom: 32px; }
 
@@ -146,9 +296,18 @@
     font-size: 15px;
     font-weight: 400;
     color: var(--text);
+    margin: 0;
+    line-height: 1.2;
   }
 
   .section-range { font-size: 9px; color: var(--muted); margin-left: auto; }
+
+  .section-summary {
+    margin: 0 0 14px;
+    color: #777169;
+    font-size: 10px;
+    line-height: 1.8;
+  }
 
   .section-bar {
     height: 2px;
@@ -354,12 +513,23 @@
     width: 6px; height: 6px;
     border-radius: 1px;
   }
+
+  @media (max-width: 640px) {
+    .section-nav { grid-template-columns: 1fr; }
+    .section-header { align-items: flex-start; flex-wrap: wrap; }
+    .section-range { margin-left: 0; }
+  }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="container">
 
-  <div class="header">
+  <div class="top-links">
+    <a class="top-link" href="./index.html">All Trackers</a>
+  </div>
+
+  <header class="header">
     <div class="header-left">
       <div class="eyebrow">Pawel · Auth Mastery</div>
       <h1>Auth from <em>Scratch</em><br>Confidence Checklist</h1>
@@ -372,22 +542,31 @@
       <div class="overall-label">mastered</div>
       <div class="overall-bar"><div class="overall-bar-fill" id="overall-fill"></div></div>
     </div>
-  </div>
+  </header>
 
-  <div class="confidence-banner" id="confidence-banner">
-    ◆ You can confidently say you know auth and can implement it from scratch.
-  </div>
+  <main id="main-content">
+    <section class="intro-card" aria-labelledby="auth-overview-title">
+      <div class="intro-title" id="auth-overview-title">Auth roadmap overview</div>
+      <p class="intro-copy">This page is organized as an authentication learning path: start with JWT and password-hashing fundamentals, implement the full login and refresh flow, study the attack surface, then practice explaining the architecture like you would in an interview or code review.</p>
+    </section>
 
-  <div class="legend">
+    <div class="confidence-banner" id="confidence-banner">
+      ◆ You can confidently say you know auth and can implement it from scratch.
+    </div>
+
+    <div class="legend" aria-label="Checklist legend">
     <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> understand</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> build</div>
     <div class="legend-item"><div class="legend-dot" style="background:var(--warn)"></div> explain cold</div>
     <div class="legend-item"><div class="legend-dot" style="background:#d45a5a"></div> know what breaks it</div>
-  </div>
+    </div>
 
-  <div id="checklist"></div>
+    <nav class="section-nav" id="section-nav" aria-label="Jump to auth sections"></nav>
 
-  <button class="reset-btn" onclick="resetAll()">↺ reset all</button>
+    <div id="checklist"></div>
+
+    <button class="reset-btn" onclick="resetAll()">↺ reset all</button>
+  </main>
 
   <div class="footer">
     done = you built it, explained it out loud, and know what breaks it · not "I read about it"
@@ -400,6 +579,7 @@ const STORAGE_KEY = 'auth_checklist_v1';
 const SECTIONS = [
   {
     id: 's1', num: '01', title: 'Foundational Concepts', range: 'understand before building',
+    summary: 'Cover the tradeoffs behind sessions versus JWT, how token signatures really work, and why modern password hashing choices matter for real systems.',
     groups: [
       {
         id: 'g1', title: 'Stateless vs stateful auth — the core tradeoff',
@@ -432,6 +612,7 @@ const SECTIONS = [
   },
   {
     id: 's2', num: '02', title: 'Build It From Scratch', range: 'no copy-paste allowed',
+    summary: 'Implement signup, login, refresh rotation, protected routes, and safer frontend token storage so the auth flow works end to end without tutorial magic.',
     groups: [
       {
         id: 'g4', title: 'Password auth — signup + login',
@@ -474,6 +655,7 @@ const SECTIONS = [
   },
   {
     id: 's3', num: '03', title: 'What Breaks It', range: 'the interview goes here',
+    summary: 'Study the attacks, implementation bugs, and production edge cases that separate a demo auth system from a secure one.',
     groups: [
       {
         id: 'g8', title: 'JWT-specific failure modes',
@@ -507,6 +689,7 @@ const SECTIONS = [
   },
   {
     id: 's4', num: '04', title: 'Explain It Cold', range: 'the real confidence test',
+    summary: 'Pressure-test the system by explaining the architecture, tradeoffs, and scaling decisions without notes or references.',
     groups: [
       {
         id: 'g11', title: 'Verbal explanation without reference',
@@ -575,6 +758,17 @@ function render() {
   const banner = document.getElementById('confidence-banner');
   banner.classList.toggle('show', pct === 100);
 
+  document.getElementById('section-nav').innerHTML = SECTIONS.map(sec => {
+    const sIds = [];
+    sec.groups.forEach(g => g.tasks.forEach(t => sIds.push(t.id)));
+    const sDone = countDone(sIds);
+    return `<a class="section-link" href="#section-${sec.id}">
+      <span class="section-link-kicker">Section ${sec.num}</span>
+      <span class="section-link-title">${sec.title}</span>
+      <span class="section-link-meta">${sec.summary} ${sDone}/${sIds.length} complete.</span>
+    </a>`;
+  }).join('');
+
   document.getElementById('checklist').innerHTML = SECTIONS.map(sec => {
     const sIds = [];
     sec.groups.forEach(g => g.tasks.forEach(t => sIds.push(t.id)));
@@ -604,7 +798,7 @@ function render() {
 
       return `<div class="group ${allDone ? 'all-done' : ''} ${isOpen ? 'open' : ''}">
         <div class="group-header" onclick="toggleGroup('${group.id}')">
-          <span class="group-title">${group.title}</span>
+          <h3 class="group-title">${group.title}</h3>
           <div class="mini-bar"><div class="mini-fill" style="width:${gPct}%"></div></div>
           <span class="group-stats">${gDone}/${gIds.length}</span>
           <span class="group-chevron">▼</span>
@@ -613,15 +807,16 @@ function render() {
       </div>`;
     }).join('');
 
-    return `<div class="section">
+    return `<section class="section" id="section-${sec.id}" aria-labelledby="section-title-${sec.id}">
       <div class="section-header">
         <span class="section-num">SECTION ${sec.num}</span>
-        <span class="section-title">${sec.title}</span>
+        <h2 class="section-title" id="section-title-${sec.id}">${sec.title}</h2>
         <span class="section-range">${sec.range}</span>
       </div>
+      <p class="section-summary">${sec.summary}</p>
       <div class="section-bar"><div class="section-bar-fill" style="width:${sPct}%"></div></div>
       ${groupsHtml}
-    </div>`;
+    </section>`;
   }).join('');
 }
 

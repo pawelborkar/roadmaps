@@ -3,7 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>10-Week Stack Mastery</title>
+<title>Backend Stack Mastery Roadmap | FastAPI, PostgreSQL, SQL, and Interview Prep</title>
+<meta name="description" content="Ten-week backend roadmap covering FastAPI production patterns, PostgreSQL fundamentals, SQL performance, deployment, and a capstone integration project.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#080808">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Backend Stack Mastery Roadmap">
+<meta property="og:description" content="A structured backend interview prep roadmap across FastAPI, PostgreSQL, SQL, testing, deployment, and project delivery.">
+<meta property="og:image" content="https://dummyimage.com/1200x630/080808/ddd8cf&amp;text=Backend+Stack+Mastery">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Backend Stack Mastery Roadmap">
+<meta name="twitter:description" content="Ten-week plan for FastAPI, PostgreSQL, SQL, testing, deployment, and a realistic capstone project.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Backend Stack Mastery Roadmap",
+  "description": "Ten-week backend roadmap for interview-ready FastAPI, PostgreSQL, SQL optimization, and capstone project delivery.",
+  "about": [
+    "FastAPI",
+    "PostgreSQL",
+    "SQL",
+    "Backend interview preparation",
+    "Deployment"
+  ],
+  "hasPart": [
+    {
+      "@type": "WebPageElement",
+      "name": "FastAPI — Production Patterns",
+      "description": "FastAPI structure, authentication, async patterns, testing, and deployment."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "PostgreSQL — SQL First, Then Depth",
+      "description": "SQL fluency, schema design, indexing, query plans, async database patterns, and connection pooling."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "DevPulse — Integration Project",
+      "description": "Capstone backend and frontend integration work for an AI-powered developer activity summarizer."
+    }
+  ]
+}
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
 
@@ -33,6 +75,41 @@
   }
 
   .container { max-width: 780px; margin: 0 auto; }
+
+  .skip-link {
+    position: absolute;
+    left: 20px;
+    top: -40px;
+    padding: 8px 12px;
+    background: var(--fastapi);
+    color: #04110d;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    z-index: 10;
+  }
+
+  .skip-link:focus { top: 12px; }
+
+  .top-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .top-link {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .top-link:hover { color: var(--text); }
 
   .header {
     display: flex;
@@ -103,6 +180,74 @@
     background: var(--fastapi);
   }
 
+  .intro-card {
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    background: var(--surface);
+    padding: 16px 18px;
+    margin-bottom: 18px;
+  }
+
+  .intro-title {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fastapi);
+    margin-bottom: 10px;
+  }
+
+  .intro-copy {
+    font-size: 11px;
+    line-height: 1.8;
+    color: #8a867e;
+  }
+
+  .phase-nav {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .phase-link {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.015);
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .phase-link:hover {
+    border-color: rgba(0,196,154,0.25);
+    background: rgba(0,196,154,0.03);
+  }
+
+  .phase-link-kicker {
+    display: block;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .phase-link-title {
+    display: block;
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 5px;
+  }
+
+  .phase-link-meta {
+    display: block;
+    color: #666059;
+    font-size: 9px;
+    line-height: 1.6;
+  }
+
   .phase { margin-bottom: 36px; }
 
   .phase-header {
@@ -120,6 +265,7 @@
     font-family: 'DM Serif Display', serif;
     font-size: 16px;
     font-weight: 400;
+    margin: 0;
   }
 
   .c-fastapi { color: var(--fastapi); }
@@ -127,6 +273,13 @@
   .c-devpulse { color: var(--devpulse); }
 
   .phase-wks { font-size: 9px; color: var(--muted); margin-left: auto; }
+
+  .phase-summary {
+    margin: 0 0 14px;
+    color: #777169;
+    font-size: 10px;
+    line-height: 1.8;
+  }
 
   .phase-progress-bar {
     height: 2px;
@@ -331,12 +484,23 @@
     line-height: 2.2;
     text-align: center;
   }
+
+  @media (max-width: 680px) {
+    .phase-nav { grid-template-columns: 1fr; }
+    .phase-header { align-items: flex-start; flex-wrap: wrap; }
+    .phase-wks { margin-left: 0; }
+  }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="container">
 
-  <div class="header">
+  <div class="top-links">
+    <a class="top-link" href="./index.html">All Trackers</a>
+  </div>
+
+  <header class="header">
     <div class="header-left">
       <div class="header-eyebrow">Pawel · Stack Mastery · 2026</div>
       <h1>10 Weeks to<br><em>Interview-Ready</em></h1>
@@ -346,18 +510,27 @@
       <div class="overall-label">complete</div>
       <div class="overall-bar"><div class="overall-bar-fill" id="overall-fill"></div></div>
     </div>
-  </div>
+  </header>
 
-  <div id="roadmap"></div>
+  <main id="main-content">
+    <section class="intro-card" aria-labelledby="backend-overview-title">
+      <div class="intro-title" id="backend-overview-title">Backend roadmap overview</div>
+      <p class="intro-copy">This backend study plan is grouped into three major sections: production FastAPI patterns, deep PostgreSQL and SQL fluency, and a capstone project that proves you can connect backend architecture to a real product outcome.</p>
+    </section>
 
-  <div class="apply-banner">
-    <div class="apply-dot"></div>
-    <div class="apply-text">
-      <strong>Start applying end of Week 7.</strong> Startup pipelines move slow — you'll interview when DevPulse is live. Don't wait for perfect.
+    <nav class="phase-nav" id="phase-nav" aria-label="Jump to backend roadmap phases"></nav>
+
+    <div id="roadmap"></div>
+
+    <div class="apply-banner">
+      <div class="apply-dot"></div>
+      <div class="apply-text">
+        <strong>Start applying end of Week 7.</strong> Startup pipelines move slow — you'll interview when DevPulse is live. Don't wait for perfect.
+      </div>
     </div>
-  </div>
 
-  <button class="reset-btn" onclick="resetAll()">↺ reset all progress</button>
+    <button class="reset-btn" onclick="resetAll()">↺ reset all progress</button>
+  </main>
 
   <div class="footer">
     3–4 hrs/day · no tutorials after week 1 · live URL = done, not "I finished the code"
@@ -370,6 +543,7 @@ const STORAGE_KEY = 'pawel_roadmap_v1';
 const PHASES = [
   {
     phase: '01', title: 'FastAPI — Production Patterns', color: 'fastapi', range: 'Weeks 1–3',
+    summary: 'Build production instincts around FastAPI app structure, async design, testing, authentication, and deployment basics.',
     weeks: [
       {
         id: 'w1', tag: 'WK 01', title: 'Project structure + Auth from scratch',
@@ -406,6 +580,7 @@ const PHASES = [
   },
   {
     phase: '02', title: 'PostgreSQL — SQL First, Then Depth', color: 'postgres', range: 'Weeks 4–7',
+    summary: 'Grow from SQL fluency into schema design, migrations, indexing, query analysis, async sessions, and performance-aware database work.',
     weeks: [
       {
         id: 'w4', tag: 'WK 04', title: 'Raw SQL fundamentals — deliberate, not osmosis',
@@ -457,6 +632,7 @@ const PHASES = [
   },
   {
     phase: '03', title: 'DevPulse — Integration Project', color: 'devpulse', range: 'Weeks 8–10',
+    summary: 'Turn the skills into a real capstone by shipping an AI-backed developer activity summarizer with backend, frontend, and deployment decisions you can explain.',
     weeks: [
       {
         id: 'w8', tag: 'WK 08', title: 'Backend complete + data model',
@@ -536,6 +712,17 @@ function render() {
   fillEl.style.background = col;
   document.getElementById('overall-pct').style.color = col;
 
+  document.getElementById('phase-nav').innerHTML = PHASES.map(phase => {
+    const pIds = [];
+    phase.weeks.forEach(w => w.tasks.forEach(t => pIds.push(t.id)));
+    const pDone = countDone(pIds);
+    return `<a class="phase-link" href="#phase-${phase.phase}">
+      <span class="phase-link-kicker">Phase ${phase.phase}</span>
+      <span class="phase-link-title">${phase.title}</span>
+      <span class="phase-link-meta">${phase.summary} ${pDone}/${pIds.length} complete.</span>
+    </a>`;
+  }).join('');
+
   document.getElementById('roadmap').innerHTML = PHASES.map(phase => {
     const pIds = [];
     phase.weeks.forEach(w => w.tasks.forEach(t => pIds.push(t.id)));
@@ -561,7 +748,7 @@ function render() {
       return `<div class="week ${allDone ? 'all-done' : ''} ${isOpen ? 'open' : ''}">
         <div class="week-header" onclick="toggleWeek('${week.id}')">
           <span class="week-tag">${week.tag}</span>
-          <span class="week-title">${week.title}</span>
+          <h3 class="week-title">${week.title}</h3>
           <div class="week-mini-bar"><div class="week-mini-fill fill-${phase.color}" style="width:${wPct}%"></div></div>
           <span class="week-stats">${wDone}/${wIds.length}</span>
           <span class="week-chevron">▼</span>
@@ -570,15 +757,16 @@ function render() {
       </div>`;
     }).join('');
 
-    return `<div class="phase">
+    return `<section class="phase" id="phase-${phase.phase}" aria-labelledby="phase-title-${phase.phase}">
       <div class="phase-header">
         <span class="phase-num">PHASE ${phase.phase}</span>
-        <span class="phase-title c-${phase.color}">${phase.title}</span>
+        <h2 class="phase-title c-${phase.color}" id="phase-title-${phase.phase}">${phase.title}</h2>
         <span class="phase-wks">${phase.range}</span>
       </div>
+      <p class="phase-summary">${phase.summary}</p>
       <div class="phase-progress-bar"><div class="phase-progress-fill fill-${phase.color}" style="width:${pPct}%"></div></div>
       ${weeksHtml}
-    </div>`;
+    </section>`;
   }).join('');
 }
 

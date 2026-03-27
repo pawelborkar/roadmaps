@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pawel's Trackers Hub | Roadmaps, Auth, Backend, and Workout Plans</title>
+<meta name="description" content="Browse Pawel's interactive HTML trackers for product engineering, authentication mastery, backend interview prep, and workout programming.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#10141f">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pawel's Trackers Hub">
+<meta property="og:description" content="A single landing page with quick-link cards to every interactive roadmap and training tracker.">
+<meta property="og:image" content="https://dummyimage.com/1200x630/10141f/e8eef9&amp;text=Pawel%27s+Trackers+Hub">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pawel's Trackers Hub">
+<meta name="twitter:description" content="Quick links to roadmap, auth, backend, and workout HTML trackers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Pawel's Trackers Hub",
+  "description": "Landing page linking to interactive HTML trackers for product engineering, auth, backend interview preparation, and workout programming.",
+  "hasPart": [
+    {
+      "@type": "WebPage",
+      "name": "AI Product Engineer Roadmap",
+      "description": "A six-week product engineering plan for shipping DevPulse and applying to startup roles."
+    },
+    {
+      "@type": "WebPage",
+      "name": "Auth Mastery Checklist",
+      "description": "An authentication study checklist covering JWT, password hashing, refresh tokens, and production edge cases."
+    },
+    {
+      "@type": "WebPage",
+      "name": "Backend Stack Mastery",
+      "description": "A ten-week backend interview roadmap focused on FastAPI, PostgreSQL, and a capstone integration project."
+    },
+    {
+      "@type": "WebPage",
+      "name": "Workout Program",
+      "description": "A weekly workout tracker for recomposition with exercise timers, rest timers, and history."
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --bg: #10141f;
+    --bg-soft: #171d2d;
+    --surface: rgba(17, 23, 38, 0.8);
+    --surface-strong: rgba(24, 31, 49, 0.92);
+    --border: rgba(255, 255, 255, 0.1);
+    --text: #edf2ff;
+    --muted: rgba(237, 242, 255, 0.68);
+    --lime: #c8f135;
+    --cyan: #59d7ff;
+    --orange: #ffb454;
+    --rose: #ff7597;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(circle at top left, rgba(89, 215, 255, 0.16), transparent 32%),
+      radial-gradient(circle at right 20%, rgba(255, 117, 151, 0.16), transparent 28%),
+      linear-gradient(160deg, #0b0f18 0%, #10141f 48%, #141a29 100%);
+  }
+
+  a { color: inherit; }
+
+  .shell {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 36px 0 56px;
+  }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 32px;
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(18, 24, 39, 0.94), rgba(12, 16, 27, 0.88));
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: auto -10% -40% auto;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 241, 53, 0.28), transparent 66%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(200, 241, 53, 0.24);
+    background: rgba(200, 241, 53, 0.08);
+    color: var(--lime);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 18px 0 14px;
+    max-width: 700px;
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.7rem, 7vw, 5rem);
+    line-height: 0.95;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+
+  .hero p {
+    max-width: 760px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .hero-stat {
+    padding: 10px 14px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-top: 26px;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 250px;
+    padding: 22px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    background: var(--surface);
+    backdrop-filter: blur(16px);
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.22);
+    background: var(--surface-strong);
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 45%);
+  }
+
+  .card-tag {
+    width: fit-content;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tone-lime .card-tag { background: rgba(200, 241, 53, 0.1); color: var(--lime); }
+  .tone-cyan .card-tag { background: rgba(89, 215, 255, 0.1); color: var(--cyan); }
+  .tone-orange .card-tag { background: rgba(255, 180, 84, 0.1); color: var(--orange); }
+  .tone-rose .card-tag { background: rgba(255, 117, 151, 0.1); color: var(--rose); }
+
+  .card h2 {
+    margin: 0;
+    font-size: 1.55rem;
+    line-height: 1.15;
+  }
+
+  .card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 0.98rem;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+  }
+
+  .chip {
+    padding: 7px 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .card-cta {
+    margin-top: 6px;
+    color: var(--text);
+    font-size: 0.92rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .section-copy {
+    margin-top: 26px;
+    padding: 24px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .section-copy h2 {
+    margin: 0 0 12px;
+    font-size: 1.2rem;
+  }
+
+  .section-copy p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 800px) {
+    .cards { grid-template-columns: 1fr; }
+    .hero { padding: 24px; border-radius: 22px; }
+    .shell { width: min(100% - 24px, 1120px); }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="hero">
+    <div class="eyebrow">Quick Access Hub</div>
+    <h1>Pawel's interactive roadmaps, in one place.</h1>
+    <p>This landing page gathers every standalone HTML tracker into a single SEO-friendly hub, so visitors can jump straight into product engineering planning, authentication study, backend interview prep, or workout programming.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">4 linked HTML experiences</div>
+      <div class="hero-stat">Roadmaps, checklists, and progress trackers</div>
+      <div class="hero-stat">Fast navigation for people and search crawlers</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="cards" aria-label="Quick links to HTML trackers">
+      <a class="card tone-lime" href="./ai-product-engineer.html">
+        <span class="card-tag">Career Roadmap</span>
+        <h2>AI Product Engineer Roadmap</h2>
+        <p>A six-week startup-oriented plan that moves from skill-gap closure to shipping DevPulse, applying to companies, and interview preparation.</p>
+        <div class="card-meta">
+          <span class="chip">42-day roadmap</span>
+          <span class="chip">Startup hiring focus</span>
+          <span class="chip">Product + backend + outreach</span>
+        </div>
+        <div class="card-cta">Open roadmap</div>
+      </a>
+
+      <a class="card tone-cyan" href="./auth.html">
+        <span class="card-tag">Security Checklist</span>
+        <h2>Auth Mastery Checklist</h2>
+        <p>A sectioned authentication guide covering JWT internals, password hashing, access and refresh token flows, and the production failures interviews tend to probe.</p>
+        <div class="card-meta">
+          <span class="chip">4 learning sections</span>
+          <span class="chip">JWT + cookies + revocation</span>
+          <span class="chip">Interview-ready prompts</span>
+        </div>
+        <div class="card-cta">Open checklist</div>
+      </a>
+
+      <a class="card tone-orange" href="./backend.html">
+        <span class="card-tag">Backend Roadmap</span>
+        <h2>Backend Stack Mastery</h2>
+        <p>A ten-week backend prep plan focused on FastAPI, PostgreSQL, testing, deployment, and a realistic capstone project built for interview credibility.</p>
+        <div class="card-meta">
+          <span class="chip">10-week curriculum</span>
+          <span class="chip">FastAPI + Postgres</span>
+          <span class="chip">Capstone delivery plan</span>
+        </div>
+        <div class="card-cta">Open backend plan</div>
+      </a>
+
+      <a class="card tone-rose" href="./workout.html">
+        <span class="card-tag">Training Tracker</span>
+        <h2>Workout Program</h2>
+        <p>A weekly recomposition training log with day-by-day programming, exercise timing, rest timing, recovery checkpoints, and week history.</p>
+        <div class="card-meta">
+          <span class="chip">7-day split</span>
+          <span class="chip">Timers and history</span>
+          <span class="chip">Recomposition focus</span>
+        </div>
+        <div class="card-cta">Open workout tracker</div>
+      </a>
+    </section>
+
+    <section class="section-copy" aria-labelledby="why-this-hub">
+      <h2 id="why-this-hub">Why this landing page helps SEO</h2>
+      <p>The hub gives search engines a crawlable starting point with descriptive internal links, while each destination page now has clearer metadata, stronger section labeling, and better semantic structure around its content.</p>
+    </section>
+  </main>
+</div>
+</body>
+</html>

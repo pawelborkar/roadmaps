@@ -3,10 +3,72 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Training Log</title>
+<title>Workout Program Tracker | Recomposition Training Log, Exercise Timers, and Weekly Split</title>
+<meta name="description" content="Interactive workout program tracker for recomposition with a seven-day split, exercise timers, rest timers, progression rules, and week history.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Workout Program Tracker">
+<meta property="og:description" content="Track a recomposition workout program with day-by-day exercise plans, timers, rest intervals, and training history.">
+<meta property="og:image" content="https://dummyimage.com/1200x630/0a0a0a/e8e8e8&amp;text=Workout+Program+Tracker">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Workout Program Tracker">
+<meta name="twitter:description" content="Seven-day recomposition training tracker with timers, progression rules, and weekly history.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Workout Program Tracker",
+  "description": "Interactive recomposition workout tracker with daily training splits, rest days, exercise timing, and progression guidance.",
+  "about": [
+    "Workout program",
+    "Recomposition training",
+    "Strength training tracker",
+    "Exercise timer",
+    "Weekly split"
+  ],
+  "hasPart": [
+    {
+      "@type": "WebPageElement",
+      "name": "Day 1 Chest + Triceps",
+      "description": "Heavy pressing and triceps work focused on compound lifts and accessory volume."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Day 2 Back + Biceps",
+      "description": "Vertical and horizontal pulling plus direct biceps work."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Day 3 Shoulders + Legs",
+      "description": "Shoulder development and leg training with compound lifts, lateral work, and curls."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Day 4 Cardio / Active Recovery",
+      "description": "Low-intensity cardio and mobility-focused recovery day."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Day 5 Chest + Triceps",
+      "description": "Second chest and triceps session with a slightly different exercise emphasis."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Day 6 Back + Biceps",
+      "description": "Second back and biceps session with machine and cable variations."
+    },
+    {
+      "@type": "WebPageElement",
+      "name": "Day 7 Rest",
+      "description": "Full recovery with low activity and sleep emphasis."
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&amp;family=DM+Mono:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
 <style>
 :root {
   --bg:#0a0a0a;--bg2:#111111;--bg3:#181818;--bg4:#1e1e1e;
@@ -19,6 +81,13 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;line-height:1.6;min-height:100vh}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.6}
+
+.skip-link{
+  position:absolute;left:18px;top:-40px;z-index:12000;
+  padding:8px 12px;background:var(--lime);color:var(--bg);
+  text-decoration:none;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border-radius:3px
+}
+.skip-link:focus{top:12px}
 
 /* ── Layout ── */
 .shell{display:flex;min-height:100vh}
@@ -74,11 +143,31 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ── Main ── */
 .main{flex:1;max-width:780px;padding:40px 36px 80px}
 .topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.topbar-actions{display:flex;align-items:center;gap:12px}
+.top-link{color:var(--muted);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none}
+.top-link:hover{color:var(--lime)}
 .page-eyebrow{font-size:10px;color:var(--lime);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:6px}
 .page-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:0.03em;text-transform:uppercase;line-height:1;color:var(--text)}
+.page-intro{margin-top:14px;max-width:640px;color:var(--muted);font-size:12px;line-height:1.9}
 .page-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .badge{font-size:10px;padding:3px 9px;border:1px solid var(--border2);background:var(--bg3);color:var(--muted);border-radius:2px;letter-spacing:0.05em}
 .badge.highlight{border-color:rgba(200,241,53,0.25);background:var(--lime-dim);color:var(--lime)}
+
+.intro-card,.program-overview{
+  background:var(--bg2);border:1px solid var(--border);border-radius:4px;
+  padding:16px 18px;margin-bottom:24px
+}
+.overview-title{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+.overview-copy{font-size:12px;color:var(--muted);line-height:1.85}
+.overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.overview-link{
+  display:block;padding:12px 14px;border:1px solid var(--border2);border-radius:4px;
+  background:var(--bg3);text-decoration:none;transition:border-color 0.15s,transform 0.15s
+}
+.overview-link:hover{border-color:rgba(200,241,53,0.35);transform:translateY(-1px)}
+.overview-link-day{display:block;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.overview-link-title{display:block;font-family:'Barlow Condensed',sans-serif;font-size:20px;letter-spacing:0.03em;color:var(--text);line-height:1}
+.overview-link-meta{display:block;margin-top:6px;font-size:10px;color:var(--muted);line-height:1.7}
 
 /* non-neg / progression */
 .non-neg{background:var(--bg2);border:1px solid var(--border);border-left:2px solid var(--amber);border-radius:4px;padding:16px 18px;margin-bottom:32px}
@@ -98,9 +187,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .day-num-big{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:800;color:var(--border2);line-height:1;user-select:none;position:absolute;left:-4px;top:-8px;z-index:0}
 .day-header-text{position:relative;z-index:1;padding-left:56px;flex:1}
 .day-label{font-size:10px;color:var(--lime);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:3px}
-.day-title{font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--text);line-height:1}
+.day-title{font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:var(--text);line-height:1;margin:0}
 .day-complete-badge{margin-left:auto;position:relative;z-index:1;font-size:10px;padding:4px 10px;border:1px solid rgba(200,241,53,0.3);background:var(--lime-dim);color:var(--lime);border-radius:2px;letter-spacing:0.06em;opacity:0;transition:opacity 0.3s;white-space:nowrap}
 .day-complete-badge.visible{opacity:1}
+.section-summary{margin:0 0 18px 56px;color:var(--muted);font-size:11px;line-height:1.8;max-width:620px}
 
 /* ── Day timer bar ── */
 .day-timer-bar{
@@ -271,11 +361,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .rest-overlay-skip:hover{border-color:var(--lime);color:var(--lime)}
 
 @media(max-width:700px){.sidebar{display:none}.main{padding:24px 18px 60px}.day-num-big{font-size:52px}}
+@media(max-width:700px){.overview-grid{grid-template-columns:1fr}.section-summary{margin-left:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .day-section{animation:fadeUp 0.4s ease both}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#daysContainer">Skip to workout days</a>
 <div class="shell">
 
 <!-- ── Sidebar ── -->
@@ -323,6 +415,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <div class="topbar-left">
       <div class="page-eyebrow">// week <span id="weekEyebrow">07</span> of 12</div>
       <h1 class="page-title">Workout<br>Program</h1>
+      <p class="page-intro">This workout tracker organizes a recomposition split into clear day sections with exercise timing, rest timing, progression rules, and weekly completion history so each session is easy to follow and review.</p>
       <div class="page-meta">
         <span class="badge highlight">Recomposition</span>
         <span class="badge">2 RIR working sets</span>
@@ -330,7 +423,18 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <span class="badge">~100g protein</span>
       </div>
     </div>
+    <div class="topbar-actions">
+      <a class="top-link" href="./index.html">All Trackers</a>
+    </div>
   </div>
+  <section class="intro-card" aria-labelledby="program-overview-title">
+    <div class="overview-title" id="program-overview-title">Program overview</div>
+    <div class="overview-copy">The split balances chest, back, shoulders, legs, arms, and recovery across the week. Use the overview cards below to jump to each workout day or rest day and see how much of the current week has been completed.</div>
+  </section>
+  <nav class="program-overview" id="programOverview" aria-label="Jump to workout days">
+    <div class="overview-title">Day quick links</div>
+    <div class="overview-grid" id="programOverviewGrid"></div>
+  </nav>
   <div class="non-neg">
     <div class="non-neg-title">⚠ Non-Negotiables</div>
     <ul>
@@ -377,6 +481,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 const PLAN = [
   {
     id:'day1',label:'Day 1',title:'Chest + Triceps',subtitle:'Monday',
+    summary:'Heavy chest pressing and triceps volume anchored by benching, incline work, flies, and extensions.',
     groups:[
       {name:'Chest',exercises:[
         {id:'d1_1',name:'Bench Press (Barbell/Machine)',sets:'4',reps:'6–8',tempo:'3-1-1',rir:'2 RIR',rest:180},
@@ -393,6 +498,7 @@ const PLAN = [
   },
   {
     id:'day2',label:'Day 2',title:'Back + Biceps',subtitle:'Tuesday',
+    summary:'Vertical and horizontal pulling paired with curls and hammer work to build back strength and arm volume.',
     groups:[
       {name:'Back',exercises:[
         {id:'d2_1',name:'Pull-ups OR Medium-Grip Lat Pulldown',sets:'4',reps:'6–10',tempo:'3-1-1',rir:'2 RIR',rest:180},
@@ -409,6 +515,7 @@ const PLAN = [
   },
   {
     id:'day3',label:'Day 3',title:'Shoulders + Legs',subtitle:'Wednesday',
+    summary:'Pressing, lateral raises, rear-delt work, squats or leg press, hamstring curls, and calf raises in one mixed session.',
     groups:[
       {name:'Shoulders',exercises:[
         {id:'d3_1',name:'Seated DB Shoulder Press',sets:'3',reps:'6–8',tempo:'3-1-1',rir:'2 RIR',rest:150},
@@ -426,6 +533,7 @@ const PLAN = [
   },
   {
     id:'day4',label:'Day 4',title:'Cardio / Active Recovery',subtitle:'Thursday',
+    summary:'Low-intensity cardio, mobility, and hanging work to support recovery without adding extra fatigue.',
     rest:true,
     items:[
       {id:'d4_1',text:'30–40 min easy walk (treadmill or outdoor)'},
@@ -435,6 +543,7 @@ const PLAN = [
   },
   {
     id:'day5',label:'Day 5',title:'Chest + Triceps',subtitle:'Friday',
+    summary:'A second chest and triceps session with incline emphasis, dumbbell pressing, dips, and pushdowns.',
     groups:[
       {name:'Chest',exercises:[
         {id:'d5_1',name:'Incline Barbell / Machine Press',sets:'4',reps:'6–8',tempo:'3-1-1',rir:'2 RIR',rest:180},
@@ -451,6 +560,7 @@ const PLAN = [
   },
   {
     id:'day6',label:'Day 6',title:'Back + Biceps',subtitle:'Saturday',
+    summary:'A second pulling day focused on pulldowns, machine rows, cable rows, and direct biceps accessories.',
     groups:[
       {name:'Back',exercises:[
         {id:'d6_1',name:'Neutral-Grip Lat Pulldown',sets:'4',reps:'8–10',tempo:'3-1-1',rir:'2 RIR',rest:150},
@@ -466,6 +576,7 @@ const PLAN = [
   },
   {
     id:'day7',label:'Day 7',title:'Rest',subtitle:'Sunday',
+    summary:'A full rest day centered on low activity, recovery, and better sleep.',
     rest:true,
     items:[
       {id:'d7_1',text:'Full rest'},
@@ -741,11 +852,26 @@ function fmtMsShort(ms){
 // ══════════════════════════════════════════════════════════════
 function render(){
   renderDays();
+  renderOverview();
   renderNav();
   renderRing();
   renderHistory();
   document.getElementById('weekNumDisplay').textContent=String(state.currentWeek).padStart(2,'0');
   document.getElementById('weekEyebrow').textContent=String(state.currentWeek).padStart(2,'0');
+}
+
+function renderOverview(){
+  const week=state.currentWeek;
+  const grid=document.getElementById('programOverviewGrid');
+  grid.innerHTML=PLAN.map(day=>{
+    const ids=day.rest?day.items.map(x=>x.id):day.groups.flatMap(g=>g.exercises.map(e=>e.id));
+    const done=ids.filter(id=>getChecked(week,id)).length;
+    return `<a class="overview-link" href="#${day.id}">
+      <span class="overview-link-day">${day.label}</span>
+      <span class="overview-link-title">${day.title}</span>
+      <span class="overview-link-meta">${day.summary} ${done}/${ids.length} complete this week.</span>
+    </a>`;
+  }).join('');
 }
 
 function renderDays(){
@@ -774,12 +900,19 @@ function renderDays(){
       <div class="day-num-big">${String(i+1).padStart(2,'0')}</div>
       <div class="day-header-text" style="flex:1">
         <div class="day-label">${day.label}</div>
-        <div class="day-title">${day.title}</div>
+        <h2 class="day-title" id="${day.id}-title">${day.title}</h2>
         ${day.subtitle?`<div style="font-size:11px;color:var(--muted);letter-spacing:0.08em;margin-top:2px">${day.subtitle}</div>`:''}
       </div>
       <div class="day-complete-badge ${allDone?'visible':''}">✓ Complete</div>
     `;
     section.appendChild(hdr);
+
+    section.setAttribute('aria-labelledby', `${day.id}-title`);
+
+    const summary=document.createElement('p');
+    summary.className='section-summary';
+    summary.textContent=day.summary;
+    section.appendChild(summary);
 
     // Day timer bar (only for workout days)
     if(!day.rest){
@@ -814,7 +947,7 @@ function renderDays(){
       day.groups.forEach(group=>{
         const groupDiv=document.createElement('div');
         groupDiv.className='muscle-group';
-        groupDiv.innerHTML=`<div class="muscle-label">${group.name}</div>`;
+        groupDiv.innerHTML=`<h3 class="muscle-label">${group.name}</h3>`;
 
         group.exercises.forEach(ex=>{
           const done=getChecked(week,ex.id);
