@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auth Mastery Checklist</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
+
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #141414;
+    --border: #1c1c1c;
+    --border2: #242424;
+    --text: #ddd8cf;
+    --muted: #4a4a4a;
+    --dim: #2a2a2a;
+    --accent: #00c49a;
+    --warn: #e8971e;
+    --blue: #4a8fd4;
+    --done-text: #333;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  .container { max-width: 740px; margin: 0 auto; }
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 36px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .header-left { flex: 1; min-width: 200px; }
+
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(20px, 3.5vw, 30px);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .header-sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.8;
+  }
+
+  .overall-progress {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    padding: 14px 18px;
+    min-width: 150px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .overall-pct {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--accent);
+    transition: color 0.4s;
+  }
+
+  .overall-label {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .overall-bar {
+    margin-top: 10px;
+    height: 3px;
+    background: var(--dim);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .overall-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease, background 0.4s;
+    width: 0%;
+    background: var(--accent);
+  }
+
+  /* confidence badge */
+  .confidence-banner {
+    display: none;
+    border: 1px solid rgba(0,196,154,0.25);
+    background: rgba(0,196,154,0.04);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    font-size: 11px;
+    color: var(--accent);
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .confidence-banner.show { display: block; }
+
+  /* section */
+  .section { margin-bottom: 32px; }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+
+  .section-num { font-size: 9px; color: var(--muted); letter-spacing: 0.2em; }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .section-range { font-size: 9px; color: var(--muted); margin-left: auto; }
+
+  .section-bar {
+    height: 2px;
+    background: var(--dim);
+    margin-bottom: 14px;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .section-bar-fill {
+    height: 100%;
+    border-radius: 1px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* group */
+  .group {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .group.all-done { border-color: #161616; }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--surface);
+    transition: background 0.15s;
+  }
+
+  .group-header:hover { background: var(--surface2); }
+
+  .group-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.3;
+  }
+
+  .group.all-done .group-title { color: var(--done-text); }
+
+  .group-stats { font-size: 10px; color: var(--muted); white-space: nowrap; }
+
+  .group-chevron {
+    font-size: 8px;
+    color: var(--muted);
+    transition: transform 0.2s;
+    margin-left: 4px;
+  }
+
+  .group.open .group-chevron { transform: rotate(180deg); }
+
+  .mini-bar {
+    width: 40px;
+    height: 2px;
+    background: var(--dim);
+    border-radius: 1px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .mini-fill {
+    height: 100%;
+    border-radius: 1px;
+    background: var(--accent);
+    transition: width 0.35s ease;
+    width: 0%;
+  }
+
+  .group-body {
+    display: none;
+    padding: 4px 14px 12px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .group.open .group-body { display: block; }
+
+  /* task */
+  .task {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #111;
+    cursor: pointer;
+  }
+
+  .task:last-child { border-bottom: none; }
+
+  .task-cb {
+    width: 13px;
+    height: 13px;
+    border-radius: 2px;
+    border: 1px solid var(--border2);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: transparent;
+    transition: all 0.15s;
+  }
+
+  .task.checked .task-cb { background: var(--accent); border-color: var(--accent); color: #000; }
+  .task.checked .task-cb::after { content: '✓'; }
+
+  .task-content { flex: 1; }
+
+  .task-text {
+    font-size: 11px;
+    color: #545454;
+    line-height: 1.55;
+    transition: color 0.15s;
+    display: block;
+  }
+
+  .task:hover .task-text { color: #888; }
+  .task.checked .task-text { color: var(--done-text); text-decoration: line-through; text-decoration-color: #222; }
+
+  .task-note {
+    font-size: 9.5px;
+    color: #343434;
+    margin-top: 3px;
+    line-height: 1.5;
+    font-style: italic;
+    display: block;
+  }
+
+  .task.checked .task-note { color: #252525; }
+
+  .badge {
+    font-size: 8px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+    text-transform: uppercase;
+  }
+
+  .badge-understand { color: var(--blue); border: 1px solid rgba(74,143,212,0.2); background: rgba(74,143,212,0.04); }
+  .badge-build { color: var(--accent); border: 1px solid rgba(0,196,154,0.2); background: rgba(0,196,154,0.04); }
+  .badge-explain { color: var(--warn); border: 1px solid rgba(232,151,30,0.2); background: rgba(232,151,30,0.04); }
+  .badge-danger { color: #d45a5a; border: 1px solid rgba(212,90,90,0.2); background: rgba(212,90,90,0.04); }
+
+  .reset-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: block;
+    margin: 0 auto 44px;
+  }
+
+  .reset-btn:hover { color: #888; border-color: var(--border2); }
+
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0.04em;
+    line-height: 2.2;
+    text-align: center;
+  }
+
+  .legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9px;
+    color: var(--muted);
+  }
+
+  .legend-dot {
+    width: 6px; height: 6px;
+    border-radius: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Pawel · Auth Mastery</div>
+      <h1>Auth from <em>Scratch</em><br>Confidence Checklist</h1>
+      <div class="header-sub">
+        understand it · build it · explain it · know what breaks it
+      </div>
+    </div>
+    <div class="overall-progress">
+      <div class="overall-pct" id="overall-pct">0%</div>
+      <div class="overall-label">mastered</div>
+      <div class="overall-bar"><div class="overall-bar-fill" id="overall-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="confidence-banner" id="confidence-banner">
+    ◆ You can confidently say you know auth and can implement it from scratch.
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> understand</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div> build</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--warn)"></div> explain cold</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d45a5a"></div> know what breaks it</div>
+  </div>
+
+  <div id="checklist"></div>
+
+  <button class="reset-btn" onclick="resetAll()">↺ reset all</button>
+
+  <div class="footer">
+    done = you built it, explained it out loud, and know what breaks it · not "I read about it"
+  </div>
+
+</div>
+<script>
+const STORAGE_KEY = 'auth_checklist_v1';
+
+const SECTIONS = [
+  {
+    id: 's1', num: '01', title: 'Foundational Concepts', range: 'understand before building',
+    groups: [
+      {
+        id: 'g1', title: 'Stateless vs stateful auth — the core tradeoff',
+        tasks: [
+          { id: 't1', text: 'Explain why sessions (stateful) are simpler to revoke but don\'t scale horizontally', badge: 'explain' },
+          { id: 't2', text: 'Explain why JWTs (stateless) scale easily but can\'t be truly revoked without extra infrastructure', badge: 'explain' },
+          { id: 't3', text: 'Know when you\'d choose sessions over JWT — e.g. banking apps, anything requiring instant revocation', badge: 'understand' },
+        ]
+      },
+      {
+        id: 'g2', title: 'How JWT actually works — not the tutorial version',
+        tasks: [
+          { id: 't4', text: 'Decode a JWT by hand — understand header.payload.signature, what each part contains', badge: 'build', note: 'Go to jwt.io, decode a token, read every field' },
+          { id: 't5', text: 'Understand what the signature proves — and what it doesn\'t (it proves the token wasn\'t tampered with, not that the user is valid)', badge: 'understand' },
+          { id: 't6', text: 'Know the difference between signing (HS256 symmetric) vs verifying (RS256 asymmetric) and when each is used', badge: 'explain' },
+          { id: 't7', text: 'Understand why you never put sensitive data in the payload — it\'s base64, not encrypted', badge: 'danger' },
+          { id: 't8', text: 'Explain what exp, iat, sub, jti claims mean and why each exists', badge: 'explain' },
+        ]
+      },
+      {
+        id: 'g3', title: 'Password hashing — fundamentals',
+        tasks: [
+          { id: 't9', text: 'Understand why MD5/SHA1 are wrong for passwords — speed is the enemy', badge: 'understand' },
+          { id: 't10', text: 'Know what bcrypt/argon2 do differently — adaptive cost factor, salting built in', badge: 'understand' },
+          { id: 't11', text: 'Know why you never store plaintext or reversible encrypted passwords', badge: 'danger' },
+          { id: 't12', text: 'Explain what a timing attack is and why constant-time comparison matters', badge: 'explain' },
+        ]
+      },
+    ]
+  },
+  {
+    id: 's2', num: '02', title: 'Build It From Scratch', range: 'no copy-paste allowed',
+    groups: [
+      {
+        id: 'g4', title: 'Password auth — signup + login',
+        tasks: [
+          { id: 't13', text: 'Implement signup: validate input, hash password with passlib/bcrypt, store user', badge: 'build' },
+          { id: 't14', text: 'Implement login: fetch user, verify password with constant-time compare, return token', badge: 'build' },
+          { id: 't15', text: 'Reject weak passwords, duplicate emails — with meaningful error messages', badge: 'build' },
+          { id: 't16', text: 'Never return the hashed password in any API response', badge: 'danger' },
+        ]
+      },
+      {
+        id: 'g5', title: 'Access token + refresh token flow',
+        tasks: [
+          { id: 't17', text: 'Issue short-lived access token (15min) and long-lived refresh token (7–30 days) on login', badge: 'build' },
+          { id: 't18', text: 'Implement /auth/refresh endpoint — validates refresh token, issues new access token', badge: 'build' },
+          { id: 't19', text: 'Store refresh tokens in the DB (not just stateless) so they can be invalidated', badge: 'build', note: 'This is the critical insight — refresh tokens must be stateful to be revocable' },
+          { id: 't20', text: 'Implement refresh token rotation — old token invalidated when new one is issued', badge: 'build' },
+          { id: 't21', text: 'Implement /auth/logout — invalidate the refresh token in DB', badge: 'build' },
+        ]
+      },
+      {
+        id: 'g6', title: 'Protected routes + current user dep',
+        tasks: [
+          { id: 't22', text: 'Implement get_current_user FastAPI dependency — extracts + validates JWT from Authorization header', badge: 'build' },
+          { id: 't23', text: 'Handle token expiry, malformed token, missing token — each with the right HTTP status code', badge: 'build', note: '401 Unauthorized vs 403 Forbidden — know the difference' },
+          { id: 't24', text: 'Implement role-based access: admin vs regular user, using the same dep pattern', badge: 'build' },
+          { id: 't25', text: 'Make a protected route that returns the current user\'s data — not any user\'s data', badge: 'build' },
+        ]
+      },
+      {
+        id: 'g7', title: 'Token storage on the frontend',
+        tasks: [
+          { id: 't26', text: 'Understand why storing JWTs in localStorage is an XSS risk', badge: 'understand' },
+          { id: 't27', text: 'Understand why httpOnly cookies are safer for refresh tokens — JS can\'t read them', badge: 'understand' },
+          { id: 't28', text: 'Implement refresh token as httpOnly cookie in FastAPI response', badge: 'build' },
+          { id: 't29', text: 'Understand CSRF risk introduced by cookies and how SameSite=Strict/Lax mitigates it', badge: 'understand' },
+        ]
+      },
+    ]
+  },
+  {
+    id: 's3', num: '03', title: 'What Breaks It', range: 'the interview goes here',
+    groups: [
+      {
+        id: 'g8', title: 'JWT-specific failure modes',
+        tasks: [
+          { id: 't30', text: 'The "alg:none" attack — why you must explicitly specify allowed algorithms', badge: 'danger' },
+          { id: 't31', text: 'Token leakage via logs — access tokens in server logs is a real production incident', badge: 'danger' },
+          { id: 't32', text: 'What happens if your JWT secret leaks — every token ever issued is compromised', badge: 'danger' },
+          { id: 't33', text: 'Why you can\'t revoke an access token mid-flight — and what the mitigations are (short expiry, blocklist, opaque tokens)', badge: 'explain' },
+        ]
+      },
+      {
+        id: 'g9', title: 'Common implementation mistakes',
+        tasks: [
+          { id: 't34', text: 'Not validating the token\'s exp claim — trusting an expired token', badge: 'danger' },
+          { id: 't35', text: 'Using the same secret for access and refresh tokens', badge: 'danger' },
+          { id: 't36', text: 'Returning 200 OK when auth fails — leaking info through status codes', badge: 'danger' },
+          { id: 't37', text: 'Not rate limiting login endpoint — brute force trivially possible', badge: 'danger' },
+          { id: 't38', text: 'Storing refresh tokens in localStorage — negates the security benefit', badge: 'danger' },
+        ]
+      },
+      {
+        id: 'g10', title: 'Production edge cases',
+        tasks: [
+          { id: 't39', text: 'How do you handle "logout from all devices"? — invalidate all refresh tokens for that user_id', badge: 'explain' },
+          { id: 't40', text: 'How do you handle password reset securely? — time-limited signed token, single-use, invalidates existing sessions', badge: 'explain' },
+          { id: 't41', text: 'How do you handle token refresh race conditions? — two tabs refreshing simultaneously', badge: 'explain', note: 'Answer: refresh token rotation with a small reuse grace window, or locking' },
+          { id: 't42', text: 'How does your auth handle a compromised refresh token? — detection via reuse (if already rotated, someone has the old one)', badge: 'explain' },
+        ]
+      },
+    ]
+  },
+  {
+    id: 's4', num: '04', title: 'Explain It Cold', range: 'the real confidence test',
+    groups: [
+      {
+        id: 'g11', title: 'Verbal explanation without reference',
+        tasks: [
+          { id: 't43', text: 'Explain the full login → access token → refresh → logout flow to me like I\'m a junior dev', badge: 'explain', note: 'Do this out loud or written — if you stumble, that\'s the gap to close' },
+          { id: 't44', text: 'Explain why refresh tokens are stored in DB but access tokens are not', badge: 'explain' },
+          { id: 't45', text: 'Explain the difference between authentication and authorization — and where JWT handles each', badge: 'explain' },
+          { id: 't46', text: 'Draw the auth flow on a whiteboard (or paper) — client, server, DB — with arrows', badge: 'explain' },
+        ]
+      },
+      {
+        id: 'g12', title: 'Interview pressure questions — answer these without thinking',
+        tasks: [
+          { id: 't47', text: '"Why not just use sessions?" — answer with tradeoffs, not a dismissal', badge: 'explain' },
+          { id: 't48', text: '"How would you implement remember me?" — persistent refresh token with longer expiry', badge: 'explain' },
+          { id: 't49', text: '"How would you scale your auth to 1M users?" — stateless access tokens, replicated DB for refresh tokens, Redis blocklist if needed', badge: 'explain' },
+          { id: 't50', text: '"What\'s the first thing you\'d add to your current auth implementation in production?" — rate limiting, refresh token rotation, audit log', badge: 'explain' },
+        ]
+      },
+    ]
+  },
+];
+
+let checked = {};
+let open = {};
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) { const s = JSON.parse(raw); checked = s.checked || {}; open = s.open || {}; }
+  } catch(e) {}
+}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ checked, open })); } catch(e) {}
+}
+
+function allIds() {
+  const ids = [];
+  SECTIONS.forEach(s => s.groups.forEach(g => g.tasks.forEach(t => ids.push(t.id))));
+  return ids;
+}
+
+function countDone(ids) { return ids.filter(id => checked[id]).length; }
+
+function toggle(id) { checked[id] = !checked[id]; save(); render(); }
+function toggleGroup(id) { open[id] = !open[id]; save(); render(); }
+
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  checked = {}; open = {}; save(); render();
+}
+
+function render() {
+  const ids = allIds();
+  const done = countDone(ids);
+  const pct = ids.length ? Math.round((done / ids.length) * 100) : 0;
+
+  document.getElementById('overall-pct').textContent = pct + '%';
+  const fillEl = document.getElementById('overall-fill');
+  fillEl.style.width = pct + '%';
+  const col = pct < 40 ? 'var(--accent)' : pct < 75 ? 'var(--blue)' : 'var(--warn)';
+  fillEl.style.background = col;
+  document.getElementById('overall-pct').style.color = col;
+
+  const banner = document.getElementById('confidence-banner');
+  banner.classList.toggle('show', pct === 100);
+
+  document.getElementById('checklist').innerHTML = SECTIONS.map(sec => {
+    const sIds = [];
+    sec.groups.forEach(g => g.tasks.forEach(t => sIds.push(t.id)));
+    const sDone = countDone(sIds);
+    const sPct = sIds.length ? (sDone / sIds.length) * 100 : 0;
+
+    const groupsHtml = sec.groups.map(group => {
+      const gIds = group.tasks.map(t => t.id);
+      const gDone = countDone(gIds);
+      const gPct = gIds.length ? (gDone / gIds.length) * 100 : 0;
+      const allDone = gDone === gIds.length && gIds.length > 0;
+      const isOpen = !!open[group.id];
+
+      const tasksHtml = group.tasks.map(t => {
+        const ic = !!checked[t.id];
+        const b = t.badge ? `<span class="badge badge-${t.badge}">${t.badge}</span>` : '';
+        const note = t.note ? `<span class="task-note">${t.note}</span>` : '';
+        return `<div class="task ${ic ? 'checked' : ''}" onclick="toggle('${t.id}')">
+          <div class="task-cb"></div>
+          <div class="task-content">
+            <span class="task-text">${t.text}</span>
+            ${note}
+          </div>
+          ${b}
+        </div>`;
+      }).join('');
+
+      return `<div class="group ${allDone ? 'all-done' : ''} ${isOpen ? 'open' : ''}">
+        <div class="group-header" onclick="toggleGroup('${group.id}')">
+          <span class="group-title">${group.title}</span>
+          <div class="mini-bar"><div class="mini-fill" style="width:${gPct}%"></div></div>
+          <span class="group-stats">${gDone}/${gIds.length}</span>
+          <span class="group-chevron">▼</span>
+        </div>
+        <div class="group-body">${tasksHtml}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="section">
+      <div class="section-header">
+        <span class="section-num">SECTION ${sec.num}</span>
+        <span class="section-title">${sec.title}</span>
+        <span class="section-range">${sec.range}</span>
+      </div>
+      <div class="section-bar"><div class="section-bar-fill" style="width:${sPct}%"></div></div>
+      ${groupsHtml}
+    </div>`;
+  }).join('');
+}
+
+load();
+render();
+</script>
+</body>
+</html>

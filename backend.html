@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10-Week Stack Mastery</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
+
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #141414;
+    --border: #1c1c1c;
+    --border2: #242424;
+    --text: #ddd8cf;
+    --muted: #4a4a4a;
+    --dim: #2a2a2a;
+    --fastapi: #00c49a;
+    --postgres: #4a8fd4;
+    --devpulse: #e8971e;
+    --done-text: #333;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+  }
+
+  .container { max-width: 780px; margin: 0 auto; }
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .header-left { flex: 1; min-width: 200px; }
+
+  .header-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .header h1 em { font-style: italic; color: var(--fastapi); }
+
+  .overall-progress {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 3px;
+    padding: 16px 20px;
+    min-width: 160px;
+    text-align: right;
+  }
+
+  .overall-pct {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    line-height: 1;
+    color: var(--fastapi);
+    transition: color 0.4s;
+  }
+
+  .overall-label {
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .overall-bar {
+    margin-top: 10px;
+    height: 3px;
+    background: var(--dim);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .overall-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease, background 0.4s;
+    width: 0%;
+    background: var(--fastapi);
+  }
+
+  .phase { margin-bottom: 36px; }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2px;
+  }
+
+  .phase-num { font-size: 9px; color: var(--muted); letter-spacing: 0.2em; }
+
+  .phase-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .c-fastapi { color: var(--fastapi); }
+  .c-postgres { color: var(--postgres); }
+  .c-devpulse { color: var(--devpulse); }
+
+  .phase-wks { font-size: 9px; color: var(--muted); margin-left: auto; }
+
+  .phase-progress-bar {
+    height: 2px;
+    background: var(--dim);
+    margin-bottom: 16px;
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .phase-progress-fill {
+    height: 100%;
+    border-radius: 1px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .fill-fastapi { background: var(--fastapi); }
+  .fill-postgres { background: var(--postgres); }
+  .fill-devpulse { background: var(--devpulse); }
+
+  .week {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .week.all-done { border-color: #181818; }
+
+  .week-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    cursor: pointer;
+    user-select: none;
+    background: var(--surface);
+    transition: background 0.15s;
+  }
+
+  .week-header:hover { background: var(--surface2); }
+
+  .week-tag { font-size: 9px; letter-spacing: 0.1em; color: var(--muted); min-width: 30px; }
+
+  .week-title {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.3;
+  }
+
+  .week.all-done .week-title { color: var(--done-text); }
+
+  .week-stats { font-size: 10px; color: var(--muted); white-space: nowrap; }
+
+  .week-chevron {
+    font-size: 8px;
+    color: var(--muted);
+    transition: transform 0.2s;
+    margin-left: 4px;
+  }
+
+  .week.open .week-chevron { transform: rotate(180deg); }
+
+  .week-mini-bar {
+    width: 44px;
+    height: 2px;
+    background: var(--dim);
+    border-radius: 1px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .week-mini-fill {
+    height: 100%;
+    border-radius: 1px;
+    transition: width 0.35s ease;
+    width: 0%;
+  }
+
+  .week-body {
+    display: none;
+    padding: 4px 14px 12px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .week.open .week-body { display: block; }
+
+  .task {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 7px 0;
+    border-bottom: 1px solid #131313;
+    cursor: pointer;
+  }
+
+  .task:last-child { border-bottom: none; }
+
+  .task-cb {
+    width: 13px;
+    height: 13px;
+    border-radius: 2px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: transparent;
+    transition: all 0.15s;
+  }
+
+  .task.checked .task-cb {
+    background: var(--fastapi);
+    border-color: var(--fastapi);
+    color: #000;
+  }
+
+  .task.checked .task-cb::after { content: '✓'; }
+
+  .task-text {
+    font-size: 11px;
+    color: #545454;
+    line-height: 1.55;
+    flex: 1;
+    transition: color 0.15s;
+  }
+
+  .task:hover .task-text { color: #888; }
+  .task.checked .task-text { color: var(--done-text); text-decoration: line-through; text-decoration-color: #222; }
+
+  .badge {
+    font-size: 8px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+    text-transform: uppercase;
+  }
+
+  .badge-output { color: var(--devpulse); border: 1px solid rgba(232,151,30,0.2); background: rgba(232,151,30,0.04); }
+  .badge-resource { color: var(--postgres); border: 1px solid rgba(74,143,212,0.2); background: rgba(74,143,212,0.04); }
+  .badge-exit { color: var(--fastapi); border: 1px solid rgba(0,196,154,0.2); background: rgba(0,196,154,0.04); }
+
+  .apply-banner {
+    border: 1px solid rgba(232,151,30,0.15);
+    border-radius: 3px;
+    padding: 13px 16px;
+    margin: 28px 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(232,151,30,0.02);
+  }
+
+  .apply-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--devpulse);
+    flex-shrink: 0;
+    animation: pulse 2.2s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  .apply-text { font-size: 10.5px; color: #555; line-height: 1.6; }
+  .apply-text strong { color: var(--devpulse); font-weight: 500; }
+
+  .reset-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: block;
+    margin: 0 auto 44px;
+  }
+
+  .reset-btn:hover { color: #888; border-color: var(--border2); }
+
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+    font-size: 9px;
+    color: var(--dim);
+    letter-spacing: 0.04em;
+    line-height: 2.2;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-eyebrow">Pawel · Stack Mastery · 2026</div>
+      <h1>10 Weeks to<br><em>Interview-Ready</em></h1>
+    </div>
+    <div class="overall-progress">
+      <div class="overall-pct" id="overall-pct">0%</div>
+      <div class="overall-label">complete</div>
+      <div class="overall-bar"><div class="overall-bar-fill" id="overall-fill"></div></div>
+    </div>
+  </div>
+
+  <div id="roadmap"></div>
+
+  <div class="apply-banner">
+    <div class="apply-dot"></div>
+    <div class="apply-text">
+      <strong>Start applying end of Week 7.</strong> Startup pipelines move slow — you'll interview when DevPulse is live. Don't wait for perfect.
+    </div>
+  </div>
+
+  <button class="reset-btn" onclick="resetAll()">↺ reset all progress</button>
+
+  <div class="footer">
+    3–4 hrs/day · no tutorials after week 1 · live URL = done, not "I finished the code"
+  </div>
+
+</div>
+<script>
+const STORAGE_KEY = 'pawel_roadmap_v1';
+
+const PHASES = [
+  {
+    phase: '01', title: 'FastAPI — Production Patterns', color: 'fastapi', range: 'Weeks 1–3',
+    weeks: [
+      {
+        id: 'w1', tag: 'WK 01', title: 'Project structure + Auth from scratch',
+        tasks: [
+          { id: 'w1t1', text: 'Build folder structure from scratch: routers/, models/, schemas/, services/, core/' },
+          { id: 'w1t2', text: 'JWT auth: signup, login, token refresh — no library magic, understand every step' },
+          { id: 'w1t3', text: 'Pydantic v2 properly — validators, model_config, computed fields' },
+          { id: 'w1t4', text: 'Environment config with pydantic-settings — no hardcoded secrets anywhere' },
+          { id: 'w1t5', text: 'Auth API running locally, every endpoint tested in Postman/Insomnia', badge: 'output' },
+        ]
+      },
+      {
+        id: 'w2', tag: 'WK 02', title: 'Async FastAPI + dependency injection depth',
+        tasks: [
+          { id: 'w2t1', text: 'async/await properly — when it matters, when it doesn\'t, why asyncpg over psycopg2' },
+          { id: 'w2t2', text: 'Dependency injection — reusable deps, DB session injection, current user dep' },
+          { id: 'w2t3', text: 'Custom exception handlers and standardized error response shape' },
+          { id: 'w2t4', text: 'Background tasks — FastAPI BackgroundTasks vs Celery, know the difference' },
+          { id: 'w2t5', text: 'Rebuild URL shortener with these patterns — no SQLite, no tutorial structure', badge: 'output' },
+        ]
+      },
+      {
+        id: 'w3', tag: 'WK 03', title: 'Testing + deployment',
+        tasks: [
+          { id: 'w3t1', text: 'pytest + httpx async test client — test auth endpoints properly' },
+          { id: 'w3t2', text: 'Fixtures and dependency overrides for clean test isolation' },
+          { id: 'w3t3', text: 'Docker + docker-compose with FastAPI + Postgres in one compose file' },
+          { id: 'w3t4', text: 'Deploy to Railway or Render' },
+          { id: 'w3t5', text: 'URL shortener live on the internet with a basic test suite', badge: 'output' },
+          { id: 'w3t6', text: 'Phase exit: build a production FastAPI backend from a blank file', badge: 'exit' },
+        ]
+      },
+    ]
+  },
+  {
+    phase: '02', title: 'PostgreSQL — SQL First, Then Depth', color: 'postgres', range: 'Weeks 4–7',
+    weeks: [
+      {
+        id: 'w4', tag: 'WK 04', title: 'Raw SQL fundamentals — deliberate, not osmosis',
+        tasks: [
+          { id: 'w4t1', text: 'pgexercises.com — work through every section in a real Postgres instance', badge: 'resource' },
+          { id: 'w4t2', text: 'JOINs cold: INNER, LEFT, FULL — write them without reference' },
+          { id: 'w4t3', text: 'GROUP BY, aggregates (COUNT, SUM, AVG), HAVING vs WHERE' },
+          { id: 'w4t4', text: 'Subqueries vs CTEs (WITH clause) — when each is the cleaner choice' },
+          { id: 'w4t5', text: 'Window functions: ROW_NUMBER, RANK, LAG — comes up in interviews' },
+          { id: 'w4t6', text: 'Transactions: BEGIN/COMMIT/ROLLBACK — why they exist, what breaks without them' },
+          { id: 'w4t7', text: '20+ exercises done, can write any JOIN from scratch without reference', badge: 'output' },
+          { id: 'w4t8', text: 'SQL exit: write a multi-join query with aggregation cold, no reference', badge: 'exit' },
+        ]
+      },
+      {
+        id: 'w5', tag: 'WK 05', title: 'Schema design + SQLAlchemy 2.0',
+        tasks: [
+          { id: 'w5t1', text: 'SQLAlchemy 2.0 style — mapped_column, relationship(), not old declarative patterns' },
+          { id: 'w5t2', text: 'Alembic migrations properly — autogenerate, upgrade/downgrade, branching' },
+          { id: 'w5t3', text: 'Postgres-specific types: UUID PKs, JSONB columns, arrays, enums' },
+          { id: 'w5t4', text: 'Constraints: unique, check, foreign keys, cascade behavior' },
+          { id: 'w5t5', text: 'Design and migrate a non-trivial schema (3+ related tables) from scratch', badge: 'output' },
+        ]
+      },
+      {
+        id: 'w6', tag: 'WK 06', title: 'Query performance + indexing',
+        tasks: [
+          { id: 'w6t1', text: 'use-the-index-luke.com — read it this week, best free indexing resource that exists', badge: 'resource' },
+          { id: 'w6t2', text: 'EXPLAIN ANALYZE — read query plans, identify seq scans' },
+          { id: 'w6t3', text: 'Indexing strategy: B-tree, partial indexes, composite indexes, when NOT to index' },
+          { id: 'w6t4', text: 'N+1 query problem — recognize it, fix it with joinedload/selectinload' },
+          { id: 'w6t5', text: 'Raw SQL with SQLAlchemy text() for queries the ORM can\'t express cleanly' },
+          { id: 'w6t6', text: 'Transactions, isolation levels, handling deadlocks' },
+          { id: 'w6t7', text: 'Optimize a slow query from URL shortener — before/after EXPLAIN side by side', badge: 'output' },
+        ]
+      },
+      {
+        id: 'w7', tag: 'WK 07', title: 'Async Postgres + connection pooling',
+        tasks: [
+          { id: 'w7t1', text: 'asyncpg driver, SQLAlchemy async session, async_scoped_session' },
+          { id: 'w7t2', text: 'Connection pooling — pool size, overflow, timeout config' },
+          { id: 'w7t3', text: 'Pagination patterns: offset vs cursor-based — know why cursor wins at scale' },
+          { id: 'w7t4', text: 'Full-text search in Postgres (tsvector/tsquery) — no Elasticsearch needed for most apps' },
+          { id: 'w7t5', text: 'Add async DB layer + pagination to the URL shortener API', badge: 'output' },
+          { id: 'w7t6', text: 'Phase exit: can model, migrate, query and optimize a real Postgres schema', badge: 'exit' },
+        ]
+      },
+    ]
+  },
+  {
+    phase: '03', title: 'DevPulse — Integration Project', color: 'devpulse', range: 'Weeks 8–10',
+    weeks: [
+      {
+        id: 'w8', tag: 'WK 08', title: 'Backend complete + data model',
+        tasks: [
+          { id: 'w8t1', text: 'Design schema yourself first — users, repos, digest_runs, summaries tables' },
+          { id: 'w8t2', text: 'Write Alembic migrations for the full schema' },
+          { id: 'w8t3', text: 'GitHub API integration — fetch commits, PRs, issues per repo' },
+          { id: 'w8t4', text: 'Claude/OpenAI API call — summarize activity into a structured digest' },
+          { id: 'w8t5', text: 'Background task: run digest generation async, store result in DB' },
+          { id: 'w8t6', text: 'POST /repos/{owner}/{repo}/digest returns a saved AI summary', badge: 'output' },
+        ]
+      },
+      {
+        id: 'w9', tag: 'WK 09', title: 'Next.js frontend + auth integration',
+        tasks: [
+          { id: 'w9t1', text: 'NextAuth or custom JWT flow connecting to FastAPI auth endpoints' },
+          { id: 'w9t2', text: 'Dashboard: add repos, trigger digest, view history' },
+          { id: 'w9t3', text: 'Server components vs client components — make deliberate choices, not random ones' },
+          { id: 'w9t4', text: 'API routes as thin proxy layer if needed for CORS/auth' },
+          { id: 'w9t5', text: 'Full end-to-end flow working in the browser — not just Postman', badge: 'output' },
+        ]
+      },
+      {
+        id: 'w10', tag: 'WK 10', title: 'Polish, deploy, document',
+        tasks: [
+          { id: 'w10t1', text: 'Error states, loading states, empty states in UI — not just the happy path' },
+          { id: 'w10t2', text: 'Rate limiting on API (slowapi) + input validation hardening' },
+          { id: 'w10t3', text: 'Deploy: FastAPI on Railway, Next.js on Vercel, Postgres on Railway' },
+          { id: 'w10t4', text: 'README with what it does, ASCII architecture diagram, local setup instructions' },
+          { id: 'w10t5', text: 'Can walk through every file in an interview and explain each decision cold' },
+          { id: 'w10t6', text: 'Phase exit: live URL + every architectural decision explainable from memory', badge: 'exit' },
+        ]
+      },
+    ]
+  }
+];
+
+let checked = {};
+let open = {};
+
+function load() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) { const s = JSON.parse(raw); checked = s.checked || {}; open = s.open || {}; }
+  } catch(e) {}
+}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ checked, open })); } catch(e) {}
+}
+
+function allIds() {
+  const ids = [];
+  PHASES.forEach(p => p.weeks.forEach(w => w.tasks.forEach(t => ids.push(t.id))));
+  return ids;
+}
+
+function countDone(ids) { return ids.filter(id => checked[id]).length; }
+
+function toggle(id) { checked[id] = !checked[id]; save(); render(); }
+function toggleWeek(id) { open[id] = !open[id]; save(); render(); }
+
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  checked = {}; open = {}; save(); render();
+}
+
+function render() {
+  const ids = allIds();
+  const done = countDone(ids);
+  const pct = ids.length ? Math.round((done / ids.length) * 100) : 0;
+
+  document.getElementById('overall-pct').textContent = pct + '%';
+  const fillEl = document.getElementById('overall-fill');
+  fillEl.style.width = pct + '%';
+  const col = pct < 40 ? 'var(--fastapi)' : pct < 75 ? 'var(--postgres)' : 'var(--devpulse)';
+  fillEl.style.background = col;
+  document.getElementById('overall-pct').style.color = col;
+
+  document.getElementById('roadmap').innerHTML = PHASES.map(phase => {
+    const pIds = [];
+    phase.weeks.forEach(w => w.tasks.forEach(t => pIds.push(t.id)));
+    const pDone = countDone(pIds);
+    const pPct = pIds.length ? (pDone / pIds.length) * 100 : 0;
+
+    const weeksHtml = phase.weeks.map(week => {
+      const wIds = week.tasks.map(t => t.id);
+      const wDone = countDone(wIds);
+      const wPct = wIds.length ? (wDone / wIds.length) * 100 : 0;
+      const allDone = wDone === wIds.length && wIds.length > 0;
+      const isOpen = !!open[week.id];
+
+      const tasksHtml = week.tasks.map(t => {
+        const ic = !!checked[t.id];
+        const b = t.badge ? `<span class="badge badge-${t.badge}">${t.badge}</span>` : '';
+        return `<div class="task ${ic ? 'checked' : ''}" onclick="toggle('${t.id}')">
+          <div class="task-cb"></div>
+          <span class="task-text">${t.text}</span>${b}
+        </div>`;
+      }).join('');
+
+      return `<div class="week ${allDone ? 'all-done' : ''} ${isOpen ? 'open' : ''}">
+        <div class="week-header" onclick="toggleWeek('${week.id}')">
+          <span class="week-tag">${week.tag}</span>
+          <span class="week-title">${week.title}</span>
+          <div class="week-mini-bar"><div class="week-mini-fill fill-${phase.color}" style="width:${wPct}%"></div></div>
+          <span class="week-stats">${wDone}/${wIds.length}</span>
+          <span class="week-chevron">▼</span>
+        </div>
+        <div class="week-body">${tasksHtml}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">PHASE ${phase.phase}</span>
+        <span class="phase-title c-${phase.color}">${phase.title}</span>
+        <span class="phase-wks">${phase.range}</span>
+      </div>
+      <div class="phase-progress-bar"><div class="phase-progress-fill fill-${phase.color}" style="width:${pPct}%"></div></div>
+      ${weeksHtml}
+    </div>`;
+  }).join('');
+}
+
+load();
+render();
+</script>
+</body>
+</html>

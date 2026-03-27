@@ -3,846 +3,476 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pawel's Job-Ready Roadmap</title>
+<title>Pawel's Roadmap</title>
+<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montez&family=Outfit:wght@100..900&family=Pacifico&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montez&family=Outfit:wght@100..900&display=swap');
-  :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --border: #1e1e1e;
-    --accent: #c8f135;
-    --accent2: #f1c135;
-    --accent3: #35c8f1;
-    --muted: #444;
-    --text: #e8e8e8;
-    --text-dim: #888;
-    --off: #1a1a1a;
-    --off-text: #555;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
+  * { box-sizing: border-box; }
   body {
-    background: var(--bg);
-    color: var(--text);
     font-family: 'Outfit', monospace;
+    background: #0d1117;
     min-height: 100vh;
-    padding: 40px 24px 80px;
+    overflow-x: hidden;
   }
 
-  .header {
-    max-width: 900px;
-    margin: 0 auto 56px;
+  /* Animated background */
+  .bg-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
   }
 
-  .header-label {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
+  .glass {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.10);
   }
 
-  h1 {
-    font-family: 'Montez', cursive;
-    font-size: clamp(32px, 5vw, 52px);
-    font-weight: 800;
-    line-height: 1.05;
-    color: var(--text);
-    margin-bottom: 16px;
+  .glass-dark {
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.08);
   }
 
-  h1 span { color: var(--accent); }
-
-  .header-meta {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-    margin-top: 20px;
+  .glass-row {
+    background: rgba(255,255,255,0.035);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: all 0.2s ease;
   }
 
-  .meta-pill {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border: 1px solid var(--border);
-    color: var(--text-dim);
+  .glass-row:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.15);
   }
 
-  .meta-pill span { color: var(--accent2); }
-
-  /* Summary bar */
-  .summary {
-    max-width: 900px;
-    margin: 0 auto 48px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
+  .glass-row.done {
+    background: rgba(200, 241, 53, 0.04);
+    border-color: rgba(200, 241, 53, 0.12);
   }
 
-  .summary-item {
-    background: var(--surface);
-    padding: 20px;
-    text-align: center;
-  }
-
-  .summary-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
-    font-weight: 800;
-    color: var(--accent);
-    display: block;
-  }
-
-  .summary-label {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-top: 4px;
-    display: block;
-  }
-
-  /* Phase headers */
-  .phase {
-    max-width: 900px;
-    margin: 0 auto 8px;
+  .glass-row.done .task-text {
+    text-decoration: line-through;
+    opacity: 0.45;
   }
 
   .phase-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-bottom: none;
-    margin-bottom: 0;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-left: 2px solid rgba(200, 241, 53, 0.7);
   }
 
-  .phase-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: rgba(200, 241, 53, 0.08);
-    padding: 4px 10px;
-    border: 1px solid rgba(200, 241, 53, 0.2);
-  }
-
-  .phase-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .phase-goal {
-    margin-left: auto;
-    font-size: 11px;
-    color: var(--text-dim);
-  }
-
-  /* Days grid */
-  .days-grid {
-    max-width: 900px;
-    margin: 0 auto 40px;
-    border: 1px solid var(--border);
-    border-top: 2px solid var(--accent);
-  }
-
-  .day-row {
-    display: grid;
-    grid-template-columns: 100px 1fr 140px;
-    border-bottom: 1px solid var(--border);
-    min-height: 72px;
-  }
-
-  .day-row:last-child { border-bottom: none; }
-
-  .day-row.off-day {
-    background: var(--off);
-    opacity: 0.6;
-  }
-
-  .day-label {
-    padding: 16px 20px;
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .day-name {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .day-num {
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-top: 3px;
-  }
-
-  .day-row.off-day .day-name { color: var(--off-text); }
-
-  .day-content {
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-    border-right: 1px solid var(--border);
-  }
-
-  .task-main {
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .task-sub {
-    font-size: 11px;
-    color: var(--text-dim);
-    line-height: 1.5;
-  }
-
-  .day-row.off-day .task-main {
-    color: var(--off-text);
-    font-size: 12px;
-  }
-
-  .day-tag {
-    padding: 16px 20px;
+  /* Custom checkbox */
+  .custom-check {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
   }
 
-  .tag {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    border: 1px solid;
+  .custom-check.checked {
+    background: rgba(200, 241, 53, 0.2);
+    border-color: rgba(200, 241, 53, 0.6);
   }
 
-  .tag-build { color: var(--accent); border-color: rgba(200, 241, 53, 0.3); background: rgba(200, 241, 53, 0.05); }
-  .tag-learn { color: var(--accent3); border-color: rgba(53, 200, 241, 0.3); background: rgba(53, 200, 241, 0.05); }
-  .tag-ship { color: var(--accent2); border-color: rgba(241, 193, 53, 0.3); background: rgba(241, 193, 53, 0.05); }
-  .tag-apply { color: #f135c8; border-color: rgba(241, 53, 200, 0.3); background: rgba(241, 53, 200, 0.05); }
-  .tag-off { color: var(--off-text); border-color: var(--border); }
-  .tag-prep { color: #f18835; border-color: rgba(241, 136, 53, 0.3); background: rgba(241, 136, 53, 0.05); }
-
-  /* Milestone markers */
-  .milestone {
-    max-width: 900px;
-    margin: -8px auto 40px;
-    padding: 14px 20px;
-    background: rgba(200, 241, 53, 0.05);
-    border: 1px solid rgba(200, 241, 53, 0.2);
-    border-top: none;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  .custom-check.checked::after {
+    content: '';
+    width: 9px;
+    height: 5px;
+    border-left: 1.5px solid #c8f135;
+    border-bottom: 1.5px solid #c8f135;
+    transform: rotate(-45deg) translateY(-1px);
+    display: block;
   }
 
-  .milestone-icon { color: var(--accent); font-size: 14px; }
-  .milestone-text { font-size: 12px; color: var(--accent); }
-
-  /* Legend */
-  .legend {
-    max-width: 900px;
-    margin: 0 auto 48px;
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    padding: 16px 20px;
-    border: 1px solid var(--border);
-    background: var(--surface);
+  /* Status select */
+  .status-select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.7);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-family: 'Outfit', monospace;
+    font-size: 11.5px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.15s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    min-width: 110px;
+    backdrop-filter: blur(8px);
   }
 
-  .legend-title {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    width: 100%;
-    margin-bottom: 4px;
+  .status-select:focus {
+    border-color: rgba(200,241,53,0.4);
+    background: rgba(200,241,53,0.06);
   }
 
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    color: var(--text-dim);
+  .status-select option { background: #1a1f2e; color: #e8e8e8; }
+
+  /* Status colors applied via JS */
+  .status-todo    { border-color: rgba(255,255,255,0.12) !important; color: rgba(255,255,255,0.45) !important; }
+  .status-inprog  { border-color: rgba(241,193,53,0.5) !important; color: #f1c135 !important; background: rgba(241,193,53,0.08) !important; }
+  .status-done2   { border-color: rgba(200,241,53,0.5) !important; color: #c8f135 !important; background: rgba(200,241,53,0.08) !important; }
+  .status-skip    { border-color: rgba(255,100,100,0.4) !important; color: rgba(255,130,130,0.8) !important; background: rgba(255,80,80,0.06) !important; }
+
+  /* Tag badges */
+  .tag { font-size: 10.35px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; font-weight: 500; white-space: nowrap; }
+  .tag-build    { background: rgba(200,241,53,0.1);  border: 1px solid rgba(200,241,53,0.25); color: #c8f135; }
+  .tag-learn    { background: rgba(53,200,241,0.1);  border: 1px solid rgba(53,200,241,0.25); color: #35c8f1; }
+  .tag-ship     { background: rgba(241,193,53,0.1);  border: 1px solid rgba(241,193,53,0.25); color: #f1c135; }
+  .tag-apply    { background: rgba(241,53,200,0.1);  border: 1px solid rgba(241,53,200,0.25); color: #f135c8; }
+  .tag-off      { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
+  .tag-prep     { background: rgba(241,136,53,0.1);  border: 1px solid rgba(241,136,53,0.25); color: #f18835; }
+  .tag-milestone{ background: rgba(200,241,53,0.08); border: 1px solid rgba(200,241,53,0.2);  color: #c8f135; }
+
+  /* Off day rows */
+  .off-row { opacity: 0.4; }
+  .off-row:hover { opacity: 0.55; }
+
+  /* Summary stat cards */
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 12px;
   }
 
-  .legend-dot {
-    width: 8px;
-    height: 8px;
+  /* Progress bar */
+  .progress-track {
+    background: rgba(255,255,255,0.07);
+    border-radius: 99px;
+    height: 4px;
+    overflow: hidden;
   }
 
-  /* Project brief */
-  .project-brief {
-    max-width: 900px;
-    margin: 0 auto 48px;
-    border: 1px solid var(--border);
-    border-top: 2px solid var(--accent3);
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c8f135, #35c8f1);
+    border-radius: 99px;
+    transition: width 0.5s ease;
   }
 
-  .brief-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--surface);
+  /* Milestone row */
+  .milestone-row {
+    background: rgba(200,241,53,0.04);
+    border: 1px solid rgba(200,241,53,0.15);
+    border-radius: 8px;
+    margin: 6px 0 16px;
   }
 
-  .brief-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text);
+  /* Syne font */
+  .syne { font-family: 'Imperial', cursive }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+  /* Fade in animation */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
+  .fade-up { animation: fadeUp 0.4s ease forwards; }
 
-  .brief-body {
-    padding: 24px 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  .brief-section h4 {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent3);
-    margin-bottom: 12px;
-  }
-
-  .brief-section ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-
-  .brief-section ul li {
-    font-size: 12px;
-    color: var(--text-dim);
-    padding-left: 14px;
-    position: relative;
-    line-height: 1.5;
-  }
-
-  .brief-section ul li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--accent3);
-    font-size: 10px;
-    top: 1px;
-  }
-
-  /* Footer note */
-  .footer-note {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-  }
-
-  .footer-note p {
-    font-size: 11px;
-    color: var(--text-dim);
-    line-height: 1.8;
-  }
-
-  .footer-note p span { color: var(--accent2); }
-
-  @media (max-width: 600px) {
-    .day-row { grid-template-columns: 80px 1fr; }
-    .day-tag { display: none; }
-    .summary { grid-template-columns: repeat(2, 1fr); }
-    .brief-body { grid-template-columns: 1fr; }
-    .phase-goal { display: none; }
+  .project-card {
+    background: rgba(53,200,241,0.05);
+    border: 1px solid rgba(53,200,241,0.15);
+    border-top: 2px solid rgba(53,200,241,0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
   }
 </style>
 </head>
-<body>
+<body class="relative">
 
-<div class="header">
-  <div class="header-label">// job-ready roadmap · 2026</div>
-  <h1>From indie dev<br>to <span>hired</span>.</h1>
-  <div class="header-meta">
-    <div class="meta-pill">Hours/day: <span>2–3 hrs</span></div>
-    <div class="meta-pill">Off days: <span>Mon & Thu</span></div>
-    <div class="meta-pill">Duration: <span>6 weeks</span></div>
-    <div class="meta-pill">Target: <span>&lt;50 person product startup</span></div>
+<!-- BG orbs -->
+<div class="bg-orb w-96 h-96 bg-lime-400" style="top:-80px;left:-60px;"></div>
+<div class="bg-orb w-80 h-80 bg-cyan-400" style="top:30%;right:-40px;"></div>
+<div class="bg-orb w-64 h-64 bg-purple-500" style="bottom:20%;left:30%;"></div>
+
+<div class="relative z-10 max-w-4xl mx-auto px-5 py-10">
+
+  <!-- Header -->
+  <div class="mb-10 fade-up">
+    <p class="text-xs tracking-widest uppercase mb-3" style="color:#c8f135;letter-spacing:0.18em;">// job-ready roadmap · 2026</p>
+    <h1 class="syne text-5xl font-extrabold leading-tight mb-4" style="color:#f0f0f0;">From indie dev<br>to <span style="color:#c8f135;">hired.</span></h1>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">2–3 hrs/day</span>
+      <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">Off: Mon & Thu</span>
+      <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">6 weeks</span>
+      <span class="glass text-xs px-3 py-1 rounded-full" style="color:rgba(255,255,255,0.5);">&lt;50 person product startup</span>
+    </div>
   </div>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-4 gap-3 mb-8 fade-up">
+    <div class="stat-card p-4 text-center">
+      <div class="syne text-3xl font-bold mb-1" style="color:#c8f135;" id="stat-done">0</div>
+      <div class="text-xs tracking-widest uppercase" style="color:rgba(255,255,255,0.35);">Days done</div>
+    </div>
+    <div class="stat-card p-4 text-center">
+      <div class="syne text-3xl font-bold mb-1" style="color:#f0f0f0;">42</div>
+      <div class="text-xs tracking-widest uppercase" style="color:rgba(255,255,255,0.35);">Total days</div>
+    </div>
+    <div class="stat-card p-4 text-center">
+      <div class="syne text-3xl font-bold mb-1" style="color:#35c8f1;" id="stat-inprog">0</div>
+      <div class="text-xs tracking-widest uppercase" style="color:rgba(255,255,255,0.35);">In progress</div>
+    </div>
+    <div class="stat-card p-4 text-center">
+      <div class="syne text-3xl font-bold mb-1" style="color:#f1c135;" id="stat-pct">0%</div>
+      <div class="text-xs tracking-widest uppercase" style="color:rgba(255,255,255,0.35);">Complete</div>
+    </div>
+  </div>
+
+  <!-- Progress -->
+  <div class="mb-10 fade-up">
+    <div class="flex justify-between items-center mb-2">
+      <span class="text-xs" style="color:rgba(255,255,255,0.35);">Overall progress</span>
+      <span class="text-xs" style="color:#c8f135;" id="prog-label">0 / 30 active days</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="prog-bar" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- Project brief -->
+  <div class="project-card p-5 mb-10 fade-up">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="tag tag-build">The Project</span>
+      <span class="syne text-base font-bold" style="color:#f0f0f0;">DevPulse — AI-powered Developer Activity Summarizer</span>
+    </div>
+    <div class="grid grid-cols-2 gap-6">
+      <div>
+        <p class="text-xs tracking-widest uppercase mb-3" style="color:#35c8f1;">What you'll build</p>
+        <ul class="space-y-2">
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ FastAPI backend with GitHub OAuth</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Fetches commits, PRs, activity</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Sends to Claude/OpenAI for summary</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Weekly "what did I build" digest</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ React or SvelteKit frontend</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Deployed live (Railway / Render)</li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs tracking-widest uppercase mb-3" style="color:#35c8f1;">Why this project</p>
+        <ul class="space-y-2">
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Closes FastAPI gap — built from scratch</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Closes AI gap — LLM in production</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Genuinely useful — you'll use it</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Relevant to devtools startups</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Small enough to finish in 2 weeks</li>
+          <li class="text-sm" style="color:rgba(255,255,255,0.6);">→ Live URL — interviewers can verify</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAYS -->
+  <div id="days-container"></div>
+
 </div>
 
-<div class="summary">
-  <div class="summary-item">
-    <span class="summary-num">6</span>
-    <span class="summary-label">Weeks Total</span>
-  </div>
-  <div class="summary-item">
-    <span class="summary-num">~30</span>
-    <span class="summary-label">Active Days</span>
-  </div>
-  <div class="summary-item">
-    <span class="summary-num">2</span>
-    <span class="summary-label">Projects Built</span>
-  </div>
-  <div class="summary-item">
-    <span class="summary-num">~12</span>
-    <span class="summary-label">Off Days</span>
-  </div>
-</div>
+<script>
+const DAYS = [
+  // Phase 1
+  { phase: 1, phaseTitle: 'Foundation & Legitimacy', phaseGoal: 'Week 1 · Days 1–7', id: 1, name: 'Monday', num: 'Day 1', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 2, name: 'Tuesday', num: 'Day 2', task: 'Register Udyam + Update LinkedIn', sub: 'udyamregistration.gov.in (30 min) · Update LinkedIn headline, add Founder role from 2023 · Pin Clibo + Minit on GitHub with proper READMEs', tag: 'ship' },
+  { id: 3, name: 'Wednesday', num: 'Day 3', task: 'FastAPI fundamentals — docs only', sub: 'Read fastapi.tiangolo.com: routing, path params, Pydantic models, async. Build a tiny local API (3–4 endpoints) for practice only', tag: 'learn' },
+  { id: 4, name: 'Thursday', num: 'Day 4', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 5, name: 'Friday', num: 'Day 5', task: 'FastAPI — auth, middleware, env vars', sub: 'Dependency injection, OAuth2 basics, python-dotenv, CORS middleware. Goal: understand how a real app is structured', tag: 'learn' },
+  { id: 6, name: 'Saturday', num: 'Day 6', task: 'GitHub API + Anthropic/OpenAI API exploration', sub: 'Read GitHub REST API docs · Read Claude API docs · Make first raw API calls in Python using httpx or requests', tag: 'learn' },
+  { id: 7, name: 'Sunday', num: 'Day 7', task: 'Project setup + architecture planning', sub: 'Initialize DevPulse repo · Plan folder structure, routes, data models · Write README before any code · Set up virtual env', tag: 'build' },
+  { milestone: 'Week 1: Udyam registered · LinkedIn updated · DevPulse repo initialized · FastAPI concepts solid' },
 
-<!-- Legend -->
-<div class="legend">
-  <div class="legend-title">Day types</div>
-  <div class="legend-item"><div class="tag tag-learn" style="padding:3px 8px;font-size:9px;">LEARN</div> Concepts, docs, tutorials</div>
-  <div class="legend-item"><div class="tag tag-build" style="padding:3px 8px;font-size:9px;">BUILD</div> Writing code, project work</div>
-  <div class="legend-item"><div class="tag tag-ship" style="padding:3px 8px;font-size:9px;">SHIP</div> Deploy, polish, publish</div>
-  <div class="legend-item"><div class="tag tag-apply" style="padding:3px 8px;font-size:9px;">APPLY</div> Applications & outreach</div>
-  <div class="legend-item"><div class="tag tag-prep" style="padding:3px 8px;font-size:9px;">PREP</div> Interview & DSA prep</div>
-  <div class="legend-item"><div class="tag tag-off" style="padding:3px 8px;font-size:9px;">OFF</div> Rest day</div>
-</div>
+  // Phase 2
+  { phase: 2, phaseTitle: 'Build DevPulse Backend', phaseGoal: 'Week 2 · Days 8–14', id: 8, name: 'Monday', num: 'Day 8', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 9, name: 'Tuesday', num: 'Day 9', task: 'Build GitHub data fetching module', sub: 'Write Python functions to fetch commits, PRs, events · Handle pagination · Store as Pydantic models · Test with your own GitHub', tag: 'build' },
+  { id: 10, name: 'Wednesday', num: 'Day 10', task: 'Build LLM summarization module', sub: 'Write the prompt that takes GitHub activity JSON and asks Claude/GPT to summarize as a digest · Test different prompts', tag: 'build' },
+  { id: 11, name: 'Thursday', num: 'Day 11', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 12, name: 'Friday', num: 'Day 12', task: 'Wire up FastAPI routes', sub: 'POST /summarize · GET /health · Proper error handling, status codes, response models · Test with Postman', tag: 'build' },
+  { id: 13, name: 'Saturday', num: 'Day 13', task: 'Add caching + rate limiting', sub: 'In-memory cache to avoid hammering GitHub API · Basic rate limiting · Clean up code, add docstrings · Write requirements.txt', tag: 'build' },
+  { id: 14, name: 'Sunday', num: 'Day 14', task: 'Backend complete + local testing', sub: 'Full end-to-end test: input GitHub username → AI digest · Fix all bugs · Write basic pytest tests · Update README', tag: 'build' },
+  { milestone: 'Week 2: Full working FastAPI backend · GitHub data fetching · LLM integration · All tested locally' },
 
-<!-- PROJECT BRIEF -->
-<div class="project-brief">
-  <div class="brief-header">
-    <div class="tag tag-build">The Project</div>
-    <div class="brief-title">DevPulse — AI-powered Developer Activity Summarizer</div>
-  </div>
-  <div class="brief-body">
-    <div class="brief-section">
-      <h4>What you'll build</h4>
-      <ul>
-        <li>FastAPI backend with GitHub OAuth</li>
-        <li>Fetches your GitHub commits, PRs, activity</li>
-        <li>Sends data to Claude/OpenAI API for summarization</li>
-        <li>Returns a "what did I build this week" digest</li>
-        <li>Simple React or SvelteKit frontend</li>
-        <li>Deployed live (Railway or Render, free tier)</li>
-      </ul>
-    </div>
-    <div class="brief-section">
-      <h4>Why this project specifically</h4>
-      <ul>
-        <li>Closes FastAPI gap — real backend from scratch</li>
-        <li>Closes AI integration gap — LLM API in production</li>
-        <li>Genuinely useful — you'll actually use it</li>
-        <li>Impressive to devtools startups specifically</li>
-        <li>Small enough to finish in 2 weeks</li>
-        <li>Deployable = verifiable by interviewers</li>
-      </ul>
-    </div>
-  </div>
-</div>
+  // Phase 3
+  { phase: 3, phaseTitle: 'Frontend + Deploy + Ship', phaseGoal: 'Week 3 · Days 15–21', id: 15, name: 'Monday', num: 'Day 15', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 16, name: 'Tuesday', num: 'Day 16', task: 'Build simple frontend (SvelteKit or React)', sub: 'Input: GitHub username + date range · Button to fetch digest · Display formatted summary · Functionality over aesthetics', tag: 'build' },
+  { id: 17, name: 'Wednesday', num: 'Day 17', task: 'Polish UI + connect to backend', sub: 'Loading states, error handling in UI · Make it look clean · Connect frontend to FastAPI · Test full flow end to end', tag: 'build' },
+  { id: 18, name: 'Thursday', num: 'Day 18', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 19, name: 'Friday', num: 'Day 19', task: 'Deploy backend to Railway/Render', sub: 'Set up Railway or Render · Deploy FastAPI · Set env vars (API keys) · Test live URL · Deploy frontend to Vercel', tag: 'ship' },
+  { id: 20, name: 'Saturday', num: 'Day 20', task: 'Write about it publicly', sub: 'Post on X/Twitter: "Built an AI tool that summarizes GitHub activity using FastAPI + Claude. Here\'s what I learned…" · Post in r/Python', tag: 'ship' },
+  { id: 21, name: 'Sunday', num: 'Day 21', task: 'Update CV + portfolio', sub: 'Add DevPulse to CV with metrics · Update LinkedIn featured section · Write 2-line description with live URL', tag: 'ship' },
+  { milestone: 'Week 3: DevPulse live at real URL · Written about publicly · CV updated · Ready to apply' },
 
-<!-- PHASE 1 -->
-<div class="phase">
-  <div class="phase-header">
-    <div class="phase-num">Phase 01</div>
-    <div class="phase-title">Foundation & Legitimacy</div>
-    <div class="phase-goal">Week 1 · Days 1–7</div>
-  </div>
-</div>
+  // Phase 4
+  { phase: 4, phaseTitle: 'Applications + Interview Prep', phaseGoal: 'Weeks 4–5 · Days 22–35', id: 22, name: 'Monday', num: 'Day 22', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 23, name: 'Tuesday', num: 'Day 23', task: 'Build target company list', sub: 'Research 20 companies on workatastartup.com + Wellfound · Note founder names, tech stack · Shortlist top 10', tag: 'apply' },
+  { id: 24, name: 'Wednesday', num: 'Day 24', task: 'DSA prep — arrays, strings, hashmaps', sub: '3–4 easy LeetCode problems · Focus on understanding patterns not memorizing · Cover ~70% of startup screening rounds', tag: 'prep' },
+  { id: 25, name: 'Thursday', num: 'Day 25', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 26, name: 'Friday', num: 'Day 26', task: 'Send first 5 cold outreach messages', sub: 'DM founders/CTOs on X or LinkedIn · Short, specific, no fluff · Reference something specific about their product · Include live URL', tag: 'apply' },
+  { id: 27, name: 'Saturday', num: 'Day 27', task: 'DSA prep — two pointers, sliding window', sub: '3–4 easy/medium problems · Focus on clean, readable solutions not optimal ones', tag: 'prep' },
+  { id: 28, name: 'Sunday', num: 'Day 28', task: 'Apply to 5 companies via job boards', sub: 'Wellfound + workatastartup.com · Customize cover note for each · Keep it 3 sentences max', tag: 'apply' },
+  { id: 29, name: 'Monday', num: 'Day 29', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 30, name: 'Tuesday', num: 'Day 30', task: 'System design basics for startups', sub: 'Study: REST API design, basic DB schema, caching concepts · Practice explaining DevPulse architecture out loud', tag: 'prep' },
+  { id: 31, name: 'Wednesday', num: 'Day 31', task: 'Follow up + 5 more applications', sub: 'Follow up on outreach from Day 26 · Apply to 5 more · Track everything in a spreadsheet', tag: 'apply' },
+  { id: 32, name: 'Thursday', num: 'Day 32', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 33, name: 'Friday', num: 'Day 33', task: 'Prepare your story — behavioral questions', sub: '"Tell me about yourself" · "Why indie dev 2 years?" · "Biggest challenge building Clibo/Minit?" · Practice out loud', tag: 'prep' },
+  { id: 34, name: 'Saturday', num: 'Day 34', task: 'Mock interview — self or with a friend', sub: 'Full 45-min mock: intro + 2 DSA problems + system design + behavioral · Record yourself · Identify weak spots', tag: 'prep' },
+  { id: 35, name: 'Sunday', num: 'Day 35', task: '10 more applications + Peerlist profile', sub: 'Set up Peerlist profile · Apply to 10 more via all channels · You should now have 25–30 applications in pipeline', tag: 'apply' },
+  { milestone: 'Week 5: 25–30 applications sent · Interview prep solid · First responses coming in' },
 
-<div class="days-grid">
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Monday</div><div class="day-num">Day 1</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Tuesday</div><div class="day-num">Day 2</div></div>
-    <div class="day-content">
-      <div class="task-main">Register Udyam + Update LinkedIn</div>
-      <div class="task-sub">udyamregistration.gov.in (30 min) · Update LinkedIn headline, add Founder role from 2023 · Pin Clibo + Minit on GitHub with proper READMEs</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-ship">SHIP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Wednesday</div><div class="day-num">Day 3</div></div>
-    <div class="day-content">
-      <div class="task-main">FastAPI fundamentals — docs only, no tutorial</div>
-      <div class="task-sub">Read fastapi.tiangolo.com docs: routing, path params, Pydantic models, async. Build a tiny local API (3–4 endpoints) for practice only, not the main project</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-learn">LEARN</div></div>
-  </div>
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Thursday</div><div class="day-num">Day 4</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Friday</div><div class="day-num">Day 5</div></div>
-    <div class="day-content">
-      <div class="task-main">FastAPI — auth, middleware, env vars</div>
-      <div class="task-sub">Read: dependency injection, OAuth2 basics, python-dotenv, CORS middleware. Build on yesterday's practice API. Goal: understand how a real app is structured</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-learn">LEARN</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Saturday</div><div class="day-num">Day 6</div></div>
-    <div class="day-content">
-      <div class="task-main">GitHub API + Anthropic/OpenAI API exploration</div>
-      <div class="task-sub">Read GitHub REST API docs (repos, commits, events endpoints) · Read Claude API or OpenAI API docs · Make first raw API calls in Python using httpx or requests</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-learn">LEARN</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Sunday</div><div class="day-num">Day 7</div></div>
-    <div class="day-content">
-      <div class="task-main">Project setup + architecture planning</div>
-      <div class="task-sub">Initialize DevPulse repo · Plan folder structure, routes, data models · Write README before any code (forces clarity) · Set up virtual env, install dependencies</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-</div>
+  // Phase 5
+  { phase: 5, phaseTitle: 'Interviews + Keep Shipping', phaseGoal: 'Week 6 · Days 36–42', id: 36, name: 'Monday', num: 'Day 36', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 37, name: 'Tuesday', num: 'Day 37', task: 'Launch Clibo on Product Hunt', sub: 'Prepare assets · Post at 12:01am PST Tuesday · Ask network to upvote · Even modest launch = "Product Hunt featured" on CV', tag: 'ship' },
+  { id: 38, name: 'Wednesday', num: 'Day 38', task: 'Interview prep — take-home project readiness', sub: 'Practice: build a small CRUD app in 2 hours from scratch · No tutorials, just docs · Time yourself', tag: 'prep' },
+  { id: 39, name: 'Thursday', num: 'Day 39', off: true, task: '— Rest Day —', sub: '', tag: 'off' },
+  { id: 40, name: 'Friday', num: 'Day 40', task: 'Keep applying — 10 more companies', sub: "Don't stop applying during interviews · Target new YC batch companies, Peerlist job board, direct founder outreach on X", tag: 'apply' },
+  { id: 41, name: 'Saturday', num: 'Day 41', task: 'Review + adjust strategy', sub: 'Look at response rates · If <10% response rate, rewrite outreach · If no responses, target different company types', tag: 'apply' },
+  { id: 42, name: 'Sunday', num: 'Day 42', task: 'Reflect + plan Week 7+', sub: 'By now: 2–5 active conversations · Plan next 2 weeks based on what\'s working · One right offer beats ten wrong ones', tag: 'apply' },
+  { milestone: 'Week 6: Clibo on Product Hunt · 35–40 total applications · 2–5 active conversations · Offer stage realistic by Week 8–10' },
+];
 
-<div class="milestone">
-  <div class="milestone-icon">◆</div>
-  <div class="milestone-text">Week 1 checkpoint: Udyam registered · LinkedIn updated · DevPulse repo initialized · FastAPI concepts solid</div>
-</div>
+const TAG_MAP = {
+  build: 'tag-build', learn: 'tag-learn', ship: 'tag-ship',
+  apply: 'tag-apply', off: 'tag-off', prep: 'tag-prep'
+};
 
-<!-- PHASE 2 -->
-<div class="phase">
-  <div class="phase-header">
-    <div class="phase-num">Phase 02</div>
-    <div class="phase-title">Build DevPulse Backend</div>
-    <div class="phase-goal">Week 2 · Days 8–14</div>
-  </div>
-</div>
+const TAG_LABELS = {
+  build: 'BUILD', learn: 'LEARN', ship: 'SHIP',
+  apply: 'APPLY', off: 'OFF', prep: 'PREP'
+};
 
-<div class="days-grid">
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Monday</div><div class="day-num">Day 8</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Tuesday</div><div class="day-num">Day 9</div></div>
-    <div class="day-content">
-      <div class="task-main">Build GitHub data fetching module</div>
-      <div class="task-sub">Write Python functions to fetch commits, PRs, events for a given username · Handle pagination · Store results as Pydantic models · Test with your own GitHub account</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Wednesday</div><div class="day-num">Day 10</div></div>
-    <div class="day-content">
-      <div class="task-main">Build LLM summarization module</div>
-      <div class="task-sub">Write the prompt that takes GitHub activity JSON and asks Claude/GPT to summarize it as a digest · Test different prompts · Handle API errors gracefully</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Thursday</div><div class="day-num">Day 11</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Friday</div><div class="day-num">Day 12</div></div>
-    <div class="day-content">
-      <div class="task-main">Wire up FastAPI routes</div>
-      <div class="task-sub">POST /summarize — takes GitHub username + date range, returns digest · GET /health · Add proper error handling, status codes, response models · Test with Postman or httpie</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Saturday</div><div class="day-num">Day 13</div></div>
-    <div class="day-content">
-      <div class="task-main">Add caching + rate limiting</div>
-      <div class="task-sub">Simple in-memory cache (or Redis if feeling ambitious) to avoid hammering GitHub API · Add basic rate limiting · Clean up code, add docstrings · Write requirements.txt properly</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Sunday</div><div class="day-num">Day 14</div></div>
-    <div class="day-content">
-      <div class="task-main">Backend complete + local testing</div>
-      <div class="task-sub">Full end-to-end test: input GitHub username → get AI digest · Fix all bugs · Write basic tests (pytest) · Update README with API docs · Backend is done</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-</div>
+let state = JSON.parse(localStorage.getItem('roadmap-state') || '{}');
 
-<div class="milestone">
-  <div class="milestone-icon">◆</div>
-  <div class="milestone-text">Week 2 checkpoint: Full working FastAPI backend · GitHub data fetching · LLM integration · All tested locally</div>
-</div>
+function saveState() {
+  localStorage.setItem('roadmap-state', JSON.stringify(state));
+}
 
-<!-- PHASE 3 -->
-<div class="phase">
-  <div class="phase-header">
-    <div class="phase-num">Phase 03</div>
-    <div class="phase-title">Frontend + Deploy + Ship</div>
-    <div class="phase-goal">Week 3 · Days 15–21</div>
-  </div>
-</div>
+function applyStatusClass(sel, val) {
+  sel.className = 'status-select';
+  if (val === 'todo') sel.classList.add('status-todo');
+  else if (val === 'inprog') sel.classList.add('status-inprog');
+  else if (val === 'done') sel.classList.add('status-done2');
+  else if (val === 'skip') sel.classList.add('status-skip');
+}
 
-<div class="days-grid">
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Monday</div><div class="day-num">Day 15</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Tuesday</div><div class="day-num">Day 16</div></div>
-    <div class="day-content">
-      <div class="task-main">Build simple frontend (SvelteKit or React)</div>
-      <div class="task-sub">Input: GitHub username + date range · Button to fetch digest · Display formatted summary · Keep it simple — functionality over aesthetics at this stage</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Wednesday</div><div class="day-num">Day 17</div></div>
-    <div class="day-content">
-      <div class="task-main">Polish UI + connect to backend</div>
-      <div class="task-sub">Loading states, error handling in UI · Make it look clean (you know design) · Connect frontend to FastAPI · Test full flow end to end</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-build">BUILD</div></div>
-  </div>
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Thursday</div><div class="day-num">Day 18</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Friday</div><div class="day-num">Day 19</div></div>
-    <div class="day-content">
-      <div class="task-main">Deploy backend to Railway/Render</div>
-      <div class="task-sub">Set up Railway or Render account · Deploy FastAPI app · Set env vars (API keys) · Test live URL · Deploy frontend to Vercel or Netlify</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-ship">SHIP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Saturday</div><div class="day-num">Day 20</div></div>
-    <div class="day-content">
-      <div class="task-main">Write about it publicly</div>
-      <div class="task-sub">Post on X/Twitter: "Built an AI tool that summarizes your GitHub activity using FastAPI + Claude. Here's what I learned..." · Post in r/Python or r/webdev · Update LinkedIn</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-ship">SHIP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Sunday</div><div class="day-num">Day 21</div></div>
-    <div class="day-content">
-      <div class="task-main">Update CV + portfolio</div>
-      <div class="task-sub">Add DevPulse to CV with metrics · Update LinkedIn featured section · Write 2-line project description that mentions FastAPI + LLM integration + live URL</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-ship">SHIP</div></div>
-  </div>
-</div>
+function updateStats() {
+  const activeDays = DAYS.filter(d => d.id && !d.off);
+  const done = activeDays.filter(d => state[d.id]?.status === 'done').length;
+  const inprog = activeDays.filter(d => state[d.id]?.status === 'inprog').length;
+  const pct = activeDays.length ? Math.round((done / activeDays.length) * 100) : 0;
+  document.getElementById('stat-done').textContent = done;
+  document.getElementById('stat-inprog').textContent = inprog;
+  document.getElementById('stat-pct').textContent = pct + '%';
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = done + ' / ' + activeDays.length + ' active days';
+}
 
-<div class="milestone">
-  <div class="milestone-icon">◆</div>
-  <div class="milestone-text">Week 3 checkpoint: DevPulse live at real URL · Written about publicly · CV updated with 3 shipped products · Ready to apply</div>
-</div>
+function render() {
+  const container = document.getElementById('days-container');
+  let html = '';
+  let currentPhase = null;
 
-<!-- PHASE 4 -->
-<div class="phase">
-  <div class="phase-header">
-    <div class="phase-num">Phase 04</div>
-    <div class="phase-title">Applications + Interview Prep</div>
-    <div class="phase-goal">Weeks 4–5 · Days 22–35</div>
-  </div>
-</div>
+  DAYS.forEach(day => {
+    if (day.milestone) {
+      html += `<div class="milestone-row flex items-center gap-3 px-4 py-3 mb-4">
+        <span class="tag tag-milestone">✦ milestone</span>
+        <span class="text-sm" style="color:#c8f135;opacity:0.8;">${day.milestone}</span>
+      </div>`;
+      return;
+    }
 
-<div class="days-grid">
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Monday</div><div class="day-num">Day 22</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Tuesday</div><div class="day-num">Day 23</div></div>
-    <div class="day-content">
-      <div class="task-main">Build target company list</div>
-      <div class="task-sub">Research 20 companies on workatastartup.com + Wellfound (filter: devtools, &lt;50 people, remote-friendly) · Note founder names, tech stack, recent funding · Shortlist top 10</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Wednesday</div><div class="day-num">Day 24</div></div>
-    <div class="day-content">
-      <div class="task-main">DSA prep — arrays, strings, hashmaps</div>
-      <div class="task-sub">3–4 easy LeetCode problems · Focus on understanding patterns not memorizing · These cover ~70% of startup screening rounds</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-prep">PREP</div></div>
-  </div>
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Thursday</div><div class="day-num">Day 25</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Friday</div><div class="day-num">Day 26</div></div>
-    <div class="day-content">
-      <div class="task-main">Send first 5 cold outreach messages</div>
-      <div class="task-sub">DM founders/CTOs on X or LinkedIn · Short, specific, no fluff · Reference something specific about their product · Include your live project URL · Don't apply via job board for these</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Saturday</div><div class="day-num">Day 27</div></div>
-    <div class="day-content">
-      <div class="task-main">DSA prep — two pointers, sliding window</div>
-      <div class="task-sub">3–4 easy/medium problems · These come up constantly in frontend + full-stack startup interviews · Focus on clean, readable solutions not optimal ones</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-prep">PREP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Sunday</div><div class="day-num">Day 28</div></div>
-    <div class="day-content">
-      <div class="task-main">Apply to 5 companies via job boards</div>
-      <div class="task-sub">Wellfound + workatastartup.com applications · Customize cover note for each · Keep it 3 sentences max: who you are, what you built, why this company</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Monday</div><div class="day-num">Day 29</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Tuesday</div><div class="day-num">Day 30</div></div>
-    <div class="day-content">
-      <div class="task-main">System design basics for startups</div>
-      <div class="task-sub">Study: REST API design, basic DB schema design, caching concepts · Practice explaining DevPulse's architecture out loud · Startups ask "how would you build X" not whiteboard leetcode</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-prep">PREP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Wednesday</div><div class="day-num">Day 31</div></div>
-    <div class="day-content">
-      <div class="task-main">Follow up + 5 more applications</div>
-      <div class="task-sub">Follow up on outreach from Day 26 (one polite nudge is fine) · Apply to 5 more companies · Track everything in a simple spreadsheet</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Thursday</div><div class="day-num">Day 32</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Friday</div><div class="day-num">Day 33</div></div>
-    <div class="day-content">
-      <div class="task-main">Prepare your story — behavioral questions</div>
-      <div class="task-sub">Write answers to: "Tell me about yourself" · "Why indie dev for 2 years?" · "Biggest challenge building Clibo/Minit?" · "Why do you want to work at a startup?" · Practice saying them out loud</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-prep">PREP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Saturday</div><div class="day-num">Day 34</div></div>
-    <div class="day-content">
-      <div class="task-main">Mock interview — self or with a friend</div>
-      <div class="task-sub">Do a full 45-min mock: intro + 2 DSA problems + system design question + behavioral · Record yourself if solo · Identify weak spots</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-prep">PREP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Sunday</div><div class="day-num">Day 35</div></div>
-    <div class="day-content">
-      <div class="task-main">10 more applications + Peerlist profile</div>
-      <div class="task-sub">Set up Peerlist profile — Indian startup ecosystem · Apply to 10 more via all channels · You should now have 25–30 total applications in pipeline</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-</div>
+    if (day.phase) {
+      html += `<div class="phase-header rounded-lg px-4 py-3 mb-1 flex items-center gap-3 flex-wrap mt-4">
+        <span class="text-xs tracking-widest uppercase px-2 py-1 rounded" style="background:rgba(200,241,53,0.1);border:1px solid rgba(200,241,53,0.2);color:#c8f135;">Phase 0${day.phase}</span>
+        <span class="syne font-bold text-base" style="color:#f0f0f0;">${day.phaseTitle}</span>
+        <span class="ml-auto text-xs" style="color:rgba(255,255,255,0.35);">${day.phaseGoal}</span>
+      </div>`;
+    }
 
-<div class="milestone">
-  <div class="milestone-icon">◆</div>
-  <div class="milestone-text">Week 5 checkpoint: 25–30 applications sent · Interview prep solid · First responses likely coming in · Keep applying in parallel with interviews</div>
-</div>
+    const st = state[day.id] || { checked: false, status: day.off ? 'skip' : 'todo' };
+    const isDone = st.status === 'done' || st.checked;
+    const isOff = day.off;
 
-<!-- PHASE 5 -->
-<div class="phase">
-  <div class="phase-header">
-    <div class="phase-num">Phase 05</div>
-    <div class="phase-title">Interviews + Keep Shipping</div>
-    <div class="phase-goal">Week 6 · Days 36–42</div>
-  </div>
-</div>
+    html += `<div class="glass-row rounded-lg px-4 py-3 mb-1 flex items-start gap-3 ${isOff ? 'off-row' : ''} ${isDone && !isOff ? 'done' : ''}" id="row-${day.id}">
+      <div class="flex items-center gap-3 pt-0.5 flex-shrink-0" style="width:160px;">
+        ${!isOff ? `<div class="custom-check ${isDone ? 'checked' : ''}" id="chk-${day.id}" onclick="toggleCheck(${day.id})"></div>` : `<div style="width:18px;"></div>`}
+        <div>
+          <div class="text-sm font-medium" style="color:rgba(255,255,255,${isOff?'0.3':'0.8'});">${day.name}</div>
+          <div class="text-xs" style="color:rgba(255,255,255,0.25);">${day.num}</div>
+        </div>
+      </div>
 
-<div class="days-grid">
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Monday</div><div class="day-num">Day 36</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Tuesday</div><div class="day-num">Day 37</div></div>
-    <div class="day-content">
-      <div class="task-main">Launch Clibo on Product Hunt</div>
-      <div class="task-sub">Prepare assets weekend before · Post at 12:01am PST Tuesday · Ask your network to upvote · Even a modest PH launch gives you "Product Hunt featured" to add to CV</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-ship">SHIP</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Wednesday</div><div class="day-num">Day 38</div></div>
-    <div class="day-content">
-      <div class="task-main">Interview prep — take-home project readiness</div>
-      <div class="task-sub">Many startups send take-home projects. Practice: build a small CRUD app in 2 hours from scratch · No tutorials, just docs · Time yourself · This is exactly what they'll send</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-prep">PREP</div></div>
-  </div>
-  <div class="day-row off-day">
-    <div class="day-label"><div class="day-name">Thursday</div><div class="day-num">Day 39</div></div>
-    <div class="day-content"><div class="task-main">— Rest Day —</div></div>
-    <div class="day-tag"><div class="tag tag-off">OFF</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Friday</div><div class="day-num">Day 40</div></div>
-    <div class="day-content">
-      <div class="task-main">Keep applying — 10 more companies</div>
-      <div class="task-sub">Don't stop applying during interviews · Pipeline dries up fast · Target any new YC batch companies, Peerlist job board, and direct founder outreach on X</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Saturday</div><div class="day-num">Day 41</div></div>
-    <div class="day-content">
-      <div class="task-main">Review + adjust strategy</div>
-      <div class="task-sub">Look at response rates · If &lt;10% response rate, rewrite your outreach message · If getting interviews but not offers, focus more on prep · If no responses, target different company types</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-  <div class="day-row">
-    <div class="day-label"><div class="day-name">Sunday</div><div class="day-num">Day 42</div></div>
-    <div class="day-content">
-      <div class="task-main">Reflect + plan Week 7+</div>
-      <div class="task-sub">By now you should have 2–5 active conversations · Plan next 2 weeks based on what's working · If needed, extend Phase 4 loop · Don't rush — one right offer beats ten wrong ones</div>
-    </div>
-    <div class="day-tag"><div class="tag tag-apply">APPLY</div></div>
-  </div>
-</div>
+      <div class="flex-1 min-w-0">
+        <div class="text-sm task-text mb-1" style="color:rgba(255,255,255,${isOff?'0.25':'0.75'});">${day.task}</div>
+        ${day.sub ? `<div class="text-xs task-text leading-relaxed" style="color:rgba(255,255,255,0.35);">${day.sub}</div>` : ''}
+      </div>
 
-<div class="milestone">
-  <div class="milestone-icon">◆</div>
-  <div class="milestone-text">Week 6 checkpoint: Clibo on Product Hunt · 35–40 total applications · 2–5 active interview conversations · Offer stage realistic by Week 8–10</div>
-</div>
+      <div class="flex items-center gap-2 flex-shrink-0 pt-0.5">
+        <span class="tag ${TAG_MAP[day.tag]}">${TAG_LABELS[day.tag]}</span>
+        ${!isOff ? `<select class="status-select" id="sel-${day.id}" onchange="changeStatus(${day.id}, this)">
+          <option value="todo" ${st.status==='todo'?'selected':''}>To do</option>
+          <option value="inprog" ${st.status==='inprog'?'selected':''}>In progress</option>
+          <option value="done" ${st.status==='done'?'selected':''}>Done</option>
+          <option value="skip" ${st.status==='skip'?'selected':''}>Skip</option>
+        </select>` : ''}
+      </div>
+    </div>`;
+  });
 
-<div class="footer-note">
-  <p><span>Honest note:</span> This roadmap assumes consistent 2–3 hours daily on active days. The biggest risk is losing momentum after week 3 when the "building" phase ends and the "applying" grind begins. The job search part feels slower and less rewarding than coding — that's normal. Keep shipping Clibo in parallel (even small updates) so you don't feel stagnant. <span>Realistic offer timeline: 8–12 weeks from today</span> if you execute this consistently.</p>
-</div>
+  container.innerHTML = html;
 
+  // Apply status colors
+  DAYS.filter(d => d.id && !d.off).forEach(day => {
+    const sel = document.getElementById('sel-' + day.id);
+    if (sel) {
+      const st = state[day.id] || { status: 'todo' };
+      applyStatusClass(sel, st.status);
+    }
+  });
+
+  updateStats();
+}
+
+function toggleCheck(id) {
+  if (!state[id]) state[id] = { checked: false, status: 'todo' };
+  state[id].checked = !state[id].checked;
+  if (state[id].checked) state[id].status = 'done';
+  else if (state[id].status === 'done') state[id].status = 'todo';
+  saveState();
+  render();
+}
+
+function changeStatus(id, sel) {
+  if (!state[id]) state[id] = { checked: false, status: 'todo' };
+  state[id].status = sel.value;
+  state[id].checked = sel.value === 'done';
+  applyStatusClass(sel, sel.value);
+  saveState();
+  render();
+}
+
+render();
+</script>
 </body>
 </html>
