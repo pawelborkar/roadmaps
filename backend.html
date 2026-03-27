@@ -46,9 +46,10 @@
   ]
 }
 </script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
-
   :root {
     --type-scale: 1.25;
     --bg: #0e0f14;
@@ -70,7 +71,7 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Outfit', sans-serif;
     min-height: 100vh;
     padding: 40px 20px 80px;
   }
@@ -132,9 +133,9 @@
   }
 
   .header h1 {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Outfit', sans-serif;
     font-size: clamp(calc(22px * var(--type-scale)), calc(4vw * var(--type-scale)), calc(34px * var(--type-scale)));
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.15;
   }
 
@@ -150,7 +151,7 @@
   }
 
   .overall-pct {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Outfit', sans-serif;
     font-size: calc(36px * var(--type-scale));
     line-height: 1;
     color: var(--fastapi);
@@ -263,9 +264,9 @@
   .phase-num { font-size: calc(9px * var(--type-scale)); color: var(--muted); letter-spacing: 0.2em; }
 
   .phase-title {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Outfit', sans-serif;
     font-size: calc(16px * var(--type-scale));
-    font-weight: 400;
+    font-weight: 700;
     margin: 0;
   }
 
@@ -459,7 +460,7 @@
   .apply-text strong { color: var(--devpulse); font-weight: 500; }
 
   .reset-btn {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Outfit', sans-serif;
     font-size: calc(9px * var(--type-scale));
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -490,7 +491,7 @@
   body {
     position: relative;
     isolation: isolate;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    font-family: 'Outfit', sans-serif;
     background:
       radial-gradient(circle at 18% 18%, rgba(255, 216, 155, 0.36), transparent 22%),
       radial-gradient(circle at 82% 16%, rgba(238, 120, 78, 0.26), transparent 18%),
@@ -561,7 +562,7 @@
   .header h1,
   .phase-title,
   .week-title {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    font-family: 'Outfit', sans-serif;
     letter-spacing: -0.03em;
   }
 
@@ -656,10 +657,22 @@
   }
 
   @media (max-width: 680px) {
+    body { padding: 24px 14px 56px; }
     .container { padding: 22px 18px; border-radius: 28px; }
+    .top-links { flex-wrap: wrap; }
+    .header { margin-bottom: 28px; gap: 16px; }
+    .header-left { min-width: 0; }
+    .overall-progress { width: 100%; min-width: 0; text-align: left; }
+    .overall-pct { font-size: calc(31px * var(--type-scale)); }
     .phase-nav { grid-template-columns: 1fr; }
     .phase-header { align-items: flex-start; flex-wrap: wrap; }
     .phase-wks { margin-left: 0; }
+    .week-header { align-items: flex-start; flex-wrap: wrap; }
+    .week-stats { width: 100%; }
+    .week-mini-bar { width: 100%; order: 4; }
+    .week-body { padding: 6px 12px 12px; }
+    .apply-banner { align-items: flex-start; }
+    .task { gap: 12px; }
   }
 </style>
 </head>

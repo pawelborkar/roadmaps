@@ -16,7 +16,7 @@
 <meta name="twitter:description" content="Quick links to roadmap, auth, backend, and workout HTML trackers.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&amp;display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -67,8 +67,9 @@
   body {
     margin: 0;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    font-family: 'Outfit', sans-serif;
     color: var(--text);
+    overflow-x: hidden;
     background:
       radial-gradient(circle at 18% 18%, rgba(255, 216, 155, 0.36), transparent 22%),
       radial-gradient(circle at 82% 16%, rgba(238, 120, 78, 0.26), transparent 18%),
@@ -124,7 +125,7 @@
   h1 {
     margin: 18px 0 14px;
     max-width: 700px;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    font-family: 'Outfit', sans-serif;
     font-size: clamp(2.7rem, 7vw, 5rem);
     line-height: 0.95;
     font-weight: 700;
@@ -229,6 +230,8 @@
   }
 
   .chip {
+    display: inline-flex;
+    align-items: center;
     padding: 7px 10px;
     border-radius: 12px;
     background: rgba(24, 28, 38, 0.58);
@@ -266,9 +269,61 @@
   }
 
   @media (max-width: 800px) {
-    .cards { grid-template-columns: 1fr; }
+    .shell {
+      width: min(100% - 24px, 1120px);
+      padding: 24px 0 40px;
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
     .hero { padding: 24px; border-radius: 22px; }
-    .shell { width: min(100% - 24px, 1120px); }
+
+    h1 { font-size: clamp(2.3rem, 12vw, 3.8rem); }
+
+    .hero p {
+      font-size: 0.98rem;
+      line-height: 1.75;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .shell {
+      width: calc(100% - 20px);
+      padding: 20px 0 32px;
+    }
+
+    .hero {
+      padding: 20px;
+      border-radius: 20px;
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+    }
+
+    .hero-stats { gap: 10px; }
+
+    .hero-stat { width: 100%; }
+
+    .card {
+      min-height: auto;
+      padding: 18px;
+      border-radius: 20px;
+    }
+
+    .card h2 { font-size: 1.3rem; }
+
+    .chip { width: 100%; }
+
+    .section-copy {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 20px;
+    }
   }
 </style>
 </head>
